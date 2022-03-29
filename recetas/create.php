@@ -56,19 +56,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // cargamos archivo al la carpeta UPLOADS
             move_uploaded_file($imgTmpName, $imgDestination);
             
-            $sql = "INSERT INTO recetas (`receta_id`, `receta_name`, `receta_desc`, `receta_img`, `receta_content`, `recetas_cat_id`) VALUES (NULL, :receta_name, :receta_desc, :receta_img, :receta_content, :recetas_cat_id );";
+            $sql = "INSERT INTO recetas (`receta_id`, `receta_name`, `receta_desc`, `receta_img`, `receta_content`, `recetas_cat_id`, `recetas_author_id`) VALUES (NULL, :receta_name, :receta_desc, :receta_img, :receta_content, :recetas_cat_id, :recetas_author_id );";
             if ($stmt = $pdo->prepare($sql)) {
                 $stmt->bindParam(":receta_name", $param_receta_name);
                 $stmt->bindParam(":receta_desc", $param_receta_desc);
                 $stmt->bindParam(":receta_img", $param_receta_img);
                 $stmt->bindParam(":receta_content", $param_receta_content);
                 $stmt->bindParam(":recetas_cat_id", $param_recetas_cat_id);
-
+                $stmt->bindParam(":recetas_author_id", $param_recetas_author_id);
+                
                 $param_receta_name = $receta_name;
                 $param_receta_desc = $receta_desc;
                 $param_receta_img = $receta_img;
                 $param_receta_content = $receta_content;
                 $param_recetas_cat_id = $recetas_cat_id;
+                $param_recetas_author_id = $_SESSION['user_id'];
 
                 if ($stmt->execute()) {
                     session_start();
