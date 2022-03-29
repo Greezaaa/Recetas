@@ -47,6 +47,24 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
         <div class=""><?php echo $row['receta_desc']; ?></div>
         <div class="cats-img-wrapper"><img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" width="50"
                 height="50" style="object-fit: cover;"></img> </div>
+        <?php
+                $user_id = $row['recetas_author_id'];
+                $s_author = "SELECT * From users WHERE user_id = $user_id";
+                if ($author_result = $pdo->query($s_author)) {
+                    if ($author_result->rowCount() > 0) {
+                        while ($author = $author_result->fetch()) { ?>
+        <div class="author_link">
+            <a href="recetas-author.php?id=<?php echo $author['user_id']?>">
+                <?php echo $author['user_name']?>
+            </a>
+        </div>
+
+        <?php
+                        }
+                    }
+                    unset($author_result);
+                } ?>
+
         <?php actionNav($row, $t); ?>
     </div>
     <?php

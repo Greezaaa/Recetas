@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 
     <?php
     // Attempt select query execution
-    $sql = "SELECT * FROM recetas ORDER BY receta_id ASC LIMIT 5 ";
+    $sql = "SELECT * FROM recetas ORDER BY receta_id DESC LIMIT 5 ";
     if ($result = $pdo->query($sql)) {
         if ($result->rowCount() > 0) {
             echo "<div class='recetas-content'>";
