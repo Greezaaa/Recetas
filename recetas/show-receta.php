@@ -59,7 +59,7 @@ include_once "../inc/header.php";
 <div class="item-menu">
 
     <?php
-require_once "function.php";
+
 PrevItem($pdo, $old_id);
 
 NextItem($pdo, $old_id);
