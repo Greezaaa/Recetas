@@ -12,7 +12,8 @@
 	"menu": {
 		"home": "Inicio",
 		"cats": "Categorias",
-		"recetas": "Recetas"
+		"recetas": "Recetas",
+		"misrecetas": "Mis recetas"
 	},
 	"user": {
 		"login": "Iniciar",
@@ -71,7 +72,8 @@
 		"description": "Descripcion",
 		"img": "Imegen",
 		"action": "Accion",
-		"author": "Autor"
+		"author": "Autor",
+		"empty": "У базі даних записів не знайдено"
 	},
 	"action": {
 		"view": "Ver registro",

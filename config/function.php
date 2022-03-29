@@ -27,7 +27,7 @@ function UserNav($t, $page)
         <nav class="user-nav">
             <div>
             <a href="../index.php">' . $t["menu"]["home"] . '</a>
-                <a href="../recetas.php">' . $t["menu"]["recetas"] . '</a>
+                <a href="../recetas/mis-recetas.php">' . $t["menu"]["misrecetas"] . '</a>
                 <a href="../categorias.php">' . $t["menu"]["cats"] . '</a>
                 <a href="../inc/logout.php" class="btn btn-danger">' . $t["user"]["logout"] . '</a>
                 </div>
