@@ -1,0 +1,50 @@
+.alert-msg {
+  position: absolute;
+  top: 5rem;
+  right: 2rem;
+  display: inline-block;
+  padding: 0.55em 0.85em;
+  font-size: 1em;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  animation: 0.3s sessionMsg ease;
+  transform: translateX(0);
+}
+.close-btn {
+  cursor: pointer;
+  position: absolute;
+  right: -1.5rem;
+  top: -1.5rem;
+  line-height: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+.success {
+  background-color: rgba(#00ff00, 0.2);
+  border-color: rgba(#00ff00, 0.4);
+}
+.danger {
+  background-color: rgba(#ff0000, 0.2);
+  border-color: rgba(#ff0000, 0.4);
+}
+.warning {
+  background-color: rgba(#ffbb00, 0.2);
+  border-color: rgba(#ffbb00, 0.4);
+}
+
+@keyframes sessionMsg {
+  0% {
+    transform: translateX(3rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.invalid-feedback {
+  color: red;
+}
