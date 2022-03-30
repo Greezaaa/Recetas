@@ -51,11 +51,11 @@ VALUES
     (NULL, 'editor'),
     (NULL, 'administrador');
 
--- recet table after testing
-SET
-    FOREIGN_KEY_CHECKS = 0;
-
-TRUNCATE table $ table_name;
-
-SET
-    FOREIGN_KEY_CHECKS = 1;
+-- reset table after testing
+--SET
+--    FOREIGN_KEY_CHECKS = 0;
+--
+--TRUNCATE table $ table_name;
+--
+--SET
+--    FOREIGN_KEY_CHECKS = 1;
