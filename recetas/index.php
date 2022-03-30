@@ -58,31 +58,25 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
                 <?php echo $author['user_name']?>
             </a>
         </div>
-
         <?php
                         }
                     }
                     unset($author_result);
                 } ?>
-
-        <?php actionNav(); ?>
+        <!-- aqui tiene que estar el menu de acciones  -->
     </div>
     <?php
             }
             echo "</div> <!-- /receta-content -->";
-            // Free result set
             unset($result);
         } else {
-            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>' . $t["button"]["add_cat"] . '</a></div>';
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right">' . $t["button"]["add_receta"] . '</a></div>';
         }
     } else {
         echo $t["error"]["admin"];
     }
-    // Close connection
     unset($pdo);
     ?>
 </div>
-
 <?php
-
 include_once "../inc/footer.php";

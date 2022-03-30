@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include_once "../config/config.php";
 include_once "../config/function.php";
 // Check existence of id parameter before processing further

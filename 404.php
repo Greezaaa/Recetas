@@ -1,6 +1,8 @@
 <?php
 
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require_once "config/function.php";
 require_once "config/config.php";
 $page = $t["config"]["page_404"];

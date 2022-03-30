@@ -32,7 +32,6 @@ function UserNav($t, $page)
                 <a href="../inc/logout.php" class="btn btn-danger">' . $t["user"]["logout"] . '</a>
                 </div>
                 </nav>';
-        unset($_SESSION["log"]);
     } elseif (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
         if ($page == $t["config"]["page_log"]) {
             $user_nav =  "<h3>".$t['config']['page_log']."</h3>";
@@ -48,20 +47,19 @@ function UserNav($t, $page)
             </div>
         </nav>';
         }
-        // unset($_SESSION["log"]);
     }
     echo $user_nav;
 }
-
+//CRUD menu para recetas y categorias
 function actionNav()
 {
     $actionNav = "Futuro menu de acciones";
     echo $actionNav;
 }
-//añadir receta si estas logeado
+//añadir receta si estas logeado y usuario esta verificado
 function AddReceta($t)
 {
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_status'] == 1) {
         echo '<div class="btn success"><a href="../recetas/create.php">'.$t["action"]["create"].'</a></div>';
     }
 }
@@ -116,5 +114,18 @@ function NextItem($pdo, $old_id)
         }
         unset($n_receta);
         // Close connection
+    }
+}
+
+//author name from recetas_author_id
+function AuthorNameFromId($user_id, $pdo)
+{
+    if (isset($_GET['id'])) {
+        $author_name = $pdo->prepare("SELECT user_name FROM users WHERE user_id=$user_id LIMIT 1");
+        $author_name->execute([$user_id]);
+        $author_row = $author_name->fetch();
+        
+        echo "<span>Aqui estan todas las recetas de ".$author_row['user_name']."</span>";
+        unset($author_name);
     }
 }

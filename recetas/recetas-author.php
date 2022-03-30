@@ -14,17 +14,10 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
     <h2 class="">Recetas del Autor</h2>
     <?php
     $user_id = $_GET['id'];
-    
-    if (isset($_GET['id'])) {
-        $author_name = $pdo->prepare("SELECT user_name FROM users WHERE user_id=$user_id LIMIT 1");
-        $author_name->execute([$user_id]);
-        $author_row = $author_name->fetch();
+    //nombre autor de receta
+    AuthorNameFromId($user_id, $pdo);
 
-        echo "<span>Aqui tienes todas las recetas de ".$author_row['user_name']."</span>";
-        unset($author_name);
-    }
-
-    // Attempt select query execution
+    //query para mostrar las recetas segun id de autor
     $sql = "SELECT * FROM recetas WHERE recetas_author_id = $user_id";
     if ($result = $pdo->query($sql)) {
         if ($result->rowCount() > 0) {
@@ -32,7 +25,6 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
             while ($row = $result->fetch()) {
                 ?>
     <div class="content" style="margin: 2rem auto; max-width: 60%; ">
-
         <div class="">
             <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>"><?php echo $row['receta_name']; ?></a>
         </div>
@@ -48,7 +40,6 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
                     <?php echo $cats['cat_name']?>
                 </a>
             </div>
-
             <?php
                         }
                     }
