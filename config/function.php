@@ -53,43 +53,9 @@ function UserNav($t, $page)
     echo $user_nav;
 }
 
-function actionNav($row, $t)
+function actionNav()
 {
-    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] === "4") {
-        //admin action nav
-        $actionNav = '<div class="action">
-    <a href="categorias-read.php?id='.$row['receta_id'] .'" title="'.$t['action']['view'] .'"
-        data-toggle="tooltip">'.$t['action']['view'] .'</a>
-    <a href="categorias-update.php?id='.$row['receta_id'] .'" title="'.$t['action']['update'] .'"
-        data-toggle="tooltip">'.$t['action']['update'] .'</a>
-    <a href="categorias-delete.php?id='.$row['receta_id'] .'" title="'.$t['action']['delete'] .'"
-        data-toggle="tooltip">'.$t['action']['delete'] .'</a>
-</div>';
-    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] === "3") {
-        // editor nav
-        $actionNav = '<div class="action">
-    <a href="categorias-read.php?id='.$row['receta_id'] .'" title="'.$t['action']['view'] .'"
-        data-toggle="tooltip">'.$t['action']['view'] .'</a>
-    <a href="categorias-update.php?id='.$row['receta_id'] .'" title="'.$t['action']['update'] .'"
-        data-toggle="tooltip">'.$t['action']['update'] .'</a>
-
-</div>';
-    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] === "2") {
-        //usuario action nav
-        $actionNav = '<div class="action">
-    <a href="categorias-read.php?id='.$row['receta_id'] .'" title="'.$t['action']['view'] .'"
-        data-toggle="tooltip">'.$t['action']['view'] .'</a>
-</div>';
-    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] === "1") {
-        //not register action nav
-        $actionNav = '<div class="action">
-    <a href="categorias-read.php?id='.$row['receta_id'] .'" title="'.$t['action']['view'] .'"
-        data-toggle="tooltip">'.$t['action']['view'] .'</a>
-</div>';
-    } else {
-        //not register action nav
-        $actionNav = '';
-    }
+    $actionNav = "Futuro menu de acciones";
     echo $actionNav;
 }
 //añadir receta si estas logeado

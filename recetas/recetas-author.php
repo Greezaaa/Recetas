@@ -11,17 +11,28 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
 
 ?>
 <div class="page-content">
-    <h2 class=""><?php echo $t["recetas"]["receta"] ?></h2>
-    <?php AddReceta($t);  ?>
+    <h2 class="">Recetas del Autor</h2>
     <?php
+    $user_id = $_GET['id'];
+    
+    if (isset($_GET['id'])) {
+        $author_name = $pdo->prepare("SELECT user_name FROM users WHERE user_id=$user_id LIMIT 1");
+        $author_name->execute([$user_id]);
+        $author_row = $author_name->fetch();
+
+        echo "<span>Aqui tienes todas las recetas de ".$author_row['user_name']."</span>";
+        unset($author_name);
+    }
+
     // Attempt select query execution
-    $sql = "SELECT * FROM recetas";
+    $sql = "SELECT * FROM recetas WHERE recetas_author_id = $user_id";
     if ($result = $pdo->query($sql)) {
         if ($result->rowCount() > 0) {
             echo "<div class='recetas-content'>";
             while ($row = $result->fetch()) {
                 ?>
     <div class="content" style="margin: 2rem auto; max-width: 60%; ">
+
         <div class="">
             <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>"><?php echo $row['receta_name']; ?></a>
         </div>
@@ -47,25 +58,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
         <div class=""><?php echo $row['receta_desc']; ?></div>
         <div class="cats-img-wrapper"><img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" width="50"
                 height="50" style="object-fit: cover;"></img> </div>
-        <?php
-                $user_id = $row['recetas_author_id'];
-                $s_author = "SELECT * From users WHERE user_id = $user_id";
-                if ($author_result = $pdo->query($s_author)) {
-                    if ($author_result->rowCount() > 0) {
-                        while ($author = $author_result->fetch()) { ?>
-        <div class="author_link">
-            <a href="recetas-author.php?id=<?php echo $author['user_id']?>">
-                <?php echo $author['user_name']?>
-            </a>
-        </div>
-
-        <?php
-                        }
-                    }
-                    unset($author_result);
-                } ?>
-
-        <?php actionNav(); ?>
+        <?php actionNav($row, $t); ?>
     </div>
     <?php
             }

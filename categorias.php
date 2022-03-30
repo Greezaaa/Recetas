@@ -22,19 +22,13 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             echo "<div class='cats-content'>";
             while ($row = $result->fetch()) {
                 ?>
-    <div class="content-header">
-        <div class=""><?php echo $t["cats"]["id"]; ?></div>
-        <div class=""><?php echo $t["cats"]["name"]; ?></div>
-        <div class=""><?php echo $t["cats"]["description"]; ?></div>
-        <div class=""><?php echo $t["cats"]["img"]; ?></div>
-    </div>
     <div class="content">
         <div class=""><?php echo $row['cat_id']; ?></div>
         <div class=""><?php echo $row['cat_name']; ?></div>
         <div class=""><?php echo $row['cat_desc']; ?></div>
         <div class="cats-img-wrapper"><img src="uploads/cats/<?php echo $row['cat_img'] ?>" width="50" height="50"
                 style="object-fit: cover;"></img> </div>
-        <?php actionNav($row, $t); ?>
+        <?php actionNav(); ?>
     </div>
     <?php
             }

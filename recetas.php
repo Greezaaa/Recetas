@@ -28,7 +28,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
         <div class=""><?php echo $row['receta_desc']; ?></div>
         <div class="cats-img-wrapper"><img src="uploads/recetas/<?php echo $row['receta_img'] ?>" width="50" height="50"
                 style="object-fit: cover;"></img> </div>
-        <?php actionNav($row, $t); ?>
+        <?php actionNav(); ?>
     </div>
     <?php
             }
