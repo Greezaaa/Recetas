@@ -21,24 +21,24 @@
 		"logout": "Salir"
 	},
 	"error": {
-		"cat_img_err1": "Данный формат архива не поддерживается",
-		"cat_img_err2": "Проблемы с загрузкой файлов",
-		"cat_img_err3": "Размер изображения слишком велик",
-		"cat_name_err1": "Введите название категории",
-		"admin": "Критическая ошибка, обратитесь к администратору<a href='mailto:hola@greezaaa.es' target='_blank'>администратором</a>",
-		"reg_user_err1": "Пожалуйста, введите ваше имя.",
-		"reg_user_err2": "Пожалуйста, введите правильное имя.",
-		"reg_user_err3": "Вы ошиблись, введите правильную электронную почту.",
-		"reg_user_err4": "Введите пароль.",
-		"reg_user_err5": "Пароль должен содержать как минимум 6 символов.",
-		"reg_user_err6": "Пожалуйста, подтвердите пароль.",
-		"reg_user_err7": "Введенные пароли не совпадают.",
+		"cat_img_err1": "Esta formato de archivo no se admite",
+		"cat_img_err2": "No se ha podido cargar el archivo",
+		"cat_img_err3": "Archivo demarciado grande",
+		"cat_name_err1": "Introduzca el nombre de la categoria",
+		"admin": "WOW! FATAL ERROR ;( Grrrr manda un email al <a href='mailto:hola@greezaaa.es' target='_blank'>administrador</a>",
+		"reg_user_err1": "Introduzca su nombre",
+		"reg_user_err2": "Por favor introduzca el nombre bien",
+		"reg_user_err3": "Correo erroneo",
+		"reg_user_err4": "Introduzca contraseña",
+		"reg_user_err5": "Contraseña deberia tener al menos 6 digitos",
+		"reg_user_err6": "Por favor, vuelva a introducir la contraseña",
+		"reg_user_err7": "Las contraseñas no conciden",
 		"reg_user_err8": "Este correo ya esta registrado.",
-		"receta_img_err1": "",
-		"receta_img_err2": "",
-		"receta_img_err3": "",
-		"receta_name_err1": "",
-		"receta_name_err2": "",
+		"receta_img_err1": "Este fomrato no se admite",
+		"receta_img_err2": "No se ha podido cargar el archivo",
+		"receta_img_err3": "Taaño demarciado grande",
+		"receta_name_err1": "Introduzca el nombre de la receta",
+		"receta_name_err2": "Caracteros no admitidos",
 		"receta_desc_err1": "",
 		"loging_err1": "",
 		"loging_err2": "",
@@ -46,7 +46,7 @@
 		"loging_err4": "",
 		"loging_err5": "",
 		"loging_err6": "",
-		"empty": "Рецептов не найдено, если хотите добавить новый рецепт, нажмите "
+		"empty": "Recetas no encontradas, si desea agregar una nueva receta, haga clic en "
 	},
 	"label": {
 		"name": "Nombre",
@@ -63,7 +63,7 @@
 		"description": "Descripcion",
 		"img": "Foto",
 		"action": "Accion",
-		"empty": "Нет зарегестрированых категорий в базе данных."
+		"empty": "No hay categorías registradas en la base de datos."
 	},
 	"recetas": {
 		"receta": "Recetas",
@@ -73,7 +73,7 @@
 		"img": "Imegen",
 		"action": "Accion",
 		"author": "Autor",
-		"empty": "У базі даних записів не знайдено"
+		"empty": "No hay recetas registradas en la base de datos."
 	},
 	"action": {
 		"view": "Ver registro",
@@ -89,17 +89,17 @@
 		"msg_loggedin_suc": "Todo perfecto. Gracias por logearse",
 		"msg_allready_logged": "Ya estas logeado",
 		"msg_loggedOut_suc": "Elvis ha abandonado el edificio",
-		"msg_signup_suc": "Регестрация произошла успешно",
-		"msg_4": "Категория создана!",
-		"msg_cat_add_success": "Категория создана!",
-		"msg_cat_add_error": "Что-то полшоо не так, хотите отправть <a href='mailto:hola@greezaaa.es' target='_blank'>e-Mail</a> администратору?",
-		"msg_res_add_success": "Рецепт был успешно создан!",
-		"msg_res_add_error": "Что-то полшоо не так, хотите отправть <a href='mailto:hola@greezaaa.es' target='_blank'>e-Mail</a> администратору?",
+		"msg_signup_suc": "El registro fue exitoso",
+		"msg_4": "Categoria creada",
+		"msg_cat_add_success": "Categoria creada",
+		"msg_cat_add_error": "Algo ha ido mal, quieres mandar un <a href='mailto:hola@greezaaa.es' target='_blank'>e-Mail</a> administrador?",
+		"msg_res_add_success": "Receta ha sido creada",
+		"msg_res_add_error": "Algo ha ido mal, quieres mandar un <a href='mailto:hola@greezaaa.es' target='_blank'>e-Mail</a> administrador?",
 		"msg_not_logged": "No estas registrado, <a href='../login.php'>Inicia session</a> para poder añadir receta"
 	},
 	"other": {
-		"reg_redirect": "Уже зарегестрирован?",
-		"reg_redirect_2": "Тогда тебе сюда :)"
+		"reg_redirect": "Ya tienes cuenta?",
+		"reg_redirect_2": "Entonces click aqui :)"
 	},
 	"userNav": {
 		"logText": "Acceda para ver mas opciones"
