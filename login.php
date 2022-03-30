@@ -23,18 +23,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
     if (empty($_POST["email"])) {
-        $email_err = "Please enter email.";
+        $email_err = $t['error']['loging_err1'];
     } elseif (empty($_POST["password"])) {
-        $password_err = "Please enter your password.";
+        $password_err = $t['error']['loging_err2'];
     }
     if (empty($email_err) && empty($password_err)) {
         $sql = "SELECT user_id, user_name, user_email, user_password, user_status, user_rol FROM users WHERE user_email = :email";
-        if ($stmt = $pdo->prepare($sql)) {
-            $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+        if ($login_stmt = $pdo->prepare($sql)) {
+            $login_stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
             $param_email = $_POST["email"];
-            if ($stmt->execute()) {
-                if ($stmt->rowCount() == 1) {
-                    if ($row = $stmt->fetch()) {
+            if ($login_stmt->execute()) {
+                if ($login_stmt->rowCount() == 1) {
+                    if ($row = $login_stmt->fetch()) {
                         $user_id = $row["user_id"];
                         $user_email = $row["user_email"];
                         $user_status = $row['user_status'];
@@ -58,22 +58,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             header("location: index.php");
                         } else {
                             // Password is not valid, display a generic error message
-                            $login_err = "Адрес электронной почты или пароль, не совпадают.";
+                            $login_err = $t['error']['loging_err3'];
                         }
                     }
                 } else {
                     // email doesn't exist, display a generic error message
-                    $login_err = "Адрес электронной почты или пароль, не совпадают.";
+                    $login_err = $t['error']['loging_err3'];
                 }
             } else {
-                echo "<p class='text-center'>Что-то пошло не так, повторите запрос. Если данная ошибка появится снова, пожалуйста, обратитесь к <a href='mailto: hola@greezaaa.es' target='_blank' >администратору</a></p>";
+                echo "<p class='text-center'>".$t['error']['admin']."</p>";
             }
 
             // Close statement
-            unset($stmt);
+            unset($login_stmt);
         }
     }
-
     // Close connection
     unset($pdo);
 }

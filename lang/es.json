@@ -40,9 +40,9 @@
 		"receta_name_err1": "Introduzca el nombre de la receta",
 		"receta_name_err2": "Caracteros no admitidos",
 		"receta_desc_err1": "",
-		"loging_err1": "",
-		"loging_err2": "",
-		"loging_err3": "",
+		"loging_err1": "Introduzca su correo",
+		"loging_err2": "Introduzca contraseña",
+		"loging_err3": "Correo o contraseña no considen o no son correctas",
 		"loging_err4": "",
 		"loging_err5": "",
 		"loging_err6": "",
@@ -86,7 +86,7 @@
 		"add_receta": "Añadir receta"
 	},
 	"msg": {
-		"msg_loggedin_suc": "Todo perfecto. Gracias por logearse",
+		"msg_loggedin_suc": "Gracias por logearse",
 		"msg_allready_logged": "Ya estas logeado",
 		"msg_loggedOut_suc": "Elvis ha abandonado el edificio",
 		"msg_signup_suc": "El registro fue exitoso",

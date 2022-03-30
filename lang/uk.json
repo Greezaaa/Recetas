@@ -86,7 +86,7 @@
         "add_receta": "Добавити новий рецепт"
     },
     "msg": {
-        "msg_loggedin_suc": "Все ідеально. дякую за вхід",
+        "msg_loggedin_suc": "Привіт ",
         "msg_allready_logged": "Ви вже ввійшли",
         "msg_loggedOut_suc": "До побачення",
         "msg_signup_suc": "Реєстрація відбулася успішно",
