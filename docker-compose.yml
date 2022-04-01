@@ -8,10 +8,10 @@ services:
     command: --bind-address=0.0.0.0
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: verysecret
-      MYSQL_DATABASE: blog_recetas
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: somepassword
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - ./sql:/docker-entrypoint-initdb.d:ro
       - ./_db_data:/var/lib/mysql
@@ -22,10 +22,10 @@ services:
     ports:
       - "8080:80"
     environment:
-      DB_SERVER: db
-      DB_USER: dbuser
-      DB_PASSWORD: somepassword
-      DB_NAME: blog_recetas
+      DB_SERVER: ${DB_SERVER}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     volumes:
       - .:/var/www/html
 
@@ -35,7 +35,7 @@ services:
     ports:
       - "8081:80"
     environment:
-      PMA_HOST: db
-      MYSQL_USER: dbuser
-      MYSQL_PASSWORD: somepassword
+      PMA_HOST: ${DB_SERVER}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
 
