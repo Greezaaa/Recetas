@@ -129,3 +129,26 @@ function AuthorNameFromId($user_id, $pdo)
         unset($author_name);
     }
 }
+
+//action for receta if  user loged and if user rol admin or editor
+function ActionRes($row, $t)
+{
+    $receta_id = $row['receta_id'];
+    
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] == 4) {
+        echo "admin";
+    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] == 3) {
+        ?>
+
+
+
+<div class="btn icon"><a href="edit.php?id=<?php echo $receta_id; ?>">Editar</a></div>
+<div class="btn icon"><a href=""></a>Ver</div>
+<div class="btn icon"><a href=""></a>Borrar</div>
+<?php
+    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] == 2) {
+        echo "usuario";
+    } elseif (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_rol'] == 1 || $_SESSION['user_rol'] == 0) {
+        echo "unregistered or loser";
+    }
+}

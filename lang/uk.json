@@ -94,8 +94,12 @@
         "msg_cat_add_success": "Категорія створено",
         "msg_cat_add_error": "Щось пішло не так, бажаете відправити <a href='mailto:hola@greezaaa.es' target='_blank'>імейл</a> адміністратору?",
         "msg_res_add_success": "Рецепт успішно створенний",
+        "msg_res_updated": "Рецепт був змінений",
+        "msg_res_updated_err": "Ваш рецепт не можна змінити.",
         "msg_res_add_error": "Щось пішло не так, бажаете відправити <a href='mailto:hola@greezaaa.es' target='_blank'>імейл</a> адміністратору?",
-        "msg_not_logged": "Ви не зареєстровані, <a href='../login.php'>Увійти</a> щоб мати можливість додати рецепт"
+        "msg_not_logged": "Ви не зареєстровані, <a href='../login.php'>Увійти</a> щоб мати можливість додати рецепт",
+        "msg_rec_empty": "Виберіть рецепт для модифікації",
+        "msg_rec_not_found": "Ми не знайшли ваш рецепт.<br> Спробуйте ще раз!"
     },
     "other": {
         "reg_redirect": "Вже зареєстровано?",
