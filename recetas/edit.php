@@ -10,72 +10,80 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     header("Location: index.php");
     exit;
 }
-//revisamos si existe receta con ID y que ID este indicado
-//si no, mandamos a la pagina de index con mensaje
+// revisamos si existe receta con ID y que ID este indicado
+// si no, mandamos a la pagina de index con mensaje
 // if (!isset($_GET['id']) && empty(trim($_GET['id']))) {
 //     $_SESSION['msg_type'] = $t["msg_type_dan"];
 //     $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
 //     header("Location: index.php");
 // }
-// Define variables and initialize with empty values
-$receta_content = $receta_desc = $recetas_cat_id =  $receta_name = "";
-$receta_name_err = $recetas_cat_id_err = $receta_desc_err = $receta_img_err = $receta_content_err = "";
+
+$receta_content = $receta_desc = $recetas_cat_id = $receta_img = $receta_name = $receta_author_id= "";
+$receta_name_err = $receta_desc_err = $receta_img_err = $receta_content_err = "";
+$id = (isset($_POST['id'])    && !empty($_POST['id']))   ? $_POST['id']   :  $_GET['id'];
 
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        //si no se actualiza la iagen ejecutamos =>
-        if (!isset($_FILES['receta_img']) || $_FILES['receta_img']['error'] == UPLOAD_ERR_NO_FILE) {
-            $receta_id = $_POST['id'];
-            $receta_name = $_POST['receta_name'];
-            $receta_desc = $_POST['receta_desc'];
-            $recetas_cat_id = $_POST['recetas_cat_id'];
-            $recetas_author_id = $_POST['recetas_author_id'];
-            //queda por agregar parametros
-            $sql_update = "UPDATE recetas SET `receta_name`=:receta_name WHERE `receta_id`=:receta_id;";
-            if ($receta_upd = $pdo->prepare($sql_update)) {
-                $receta_upd->bindParam(":receta_name", $param_receta_name);
-                $receta_upd->bindParam(":receta_id", $param_receta_id);
-                $param_receta_name = $receta_name;
-                $param_receta_id = $receta_id;
-            
-                if ($receta_upd->execute()) {
-                    $_SESSION['msg_type'] = $t["msg_type_suc"];
-                    $_SESSION['msg_text'] = $t["msg"]["msg_res_updated"];
-                    header("Location: index.php");
-                    exit();
-                } else {
-                    $_SESSION['msg_type'] = $t["msg_type_dan"];
-                    $_SESSION['msg_text'] = $t["msg"]["msg_res_updated_error"];
-                    header("Location: index.php");
-                    exit();
-                }
-            }
-            unset($receta_upd);
+        $receta_id = $_POST['id'];
+        $receta_name = $_POST['receta_name'];
+        $receta_desc = $_POST['receta_desc'];
+        $receta_content = $_POST['receta_content'];
+        $recetas_cat_id = $_POST['recetas_cat_id'];
+        $recetas_author_id = $_POST['recetas_author_id'];
+        
+        if (empty($receta_name)) {
+            $receta_name_err = $t["error"]["receta_name_err1"];
+        } elseif (!filter_var($receta_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "$allowedChars")))) {
+            $receta_name_err = $t["error"]["receta_name_err2"] = "NOMBRE INVALIDO";
+        } elseif (empty($receta_desc)) {
+            $receta_desc_err = $t["error"]["receta_desc_err1"];
+        } elseif (empty($receta_content)) {
+            $receta_content_err = $t["error"]["receta_content_err1"];
         } else {
-            //en caso que se ha actualizado la imagen =>
-            print_r($_FILES);
+
+            //si no hay errores revisamos si se ha cargado la imagen o no
+            //si no se actualiza la iagen ejecutamos =>
+            if (!isset($_FILES['receta_img']) || $_FILES['receta_img']['error'] == UPLOAD_ERR_NO_FILE) {
+                $receta_id = $_POST['id'];
+                $receta_name = $_POST['receta_name'];
+                $receta_desc = $_POST['receta_desc'];
+                $recetas_cat_id = $_POST['recetas_cat_id'];
+                $recetas_author_id = $_POST['recetas_author_id'];
+                //queda por agregar parametros
+                $sql_update = "UPDATE recetas SET `receta_name`=:receta_name WHERE `receta_id`=:receta_id;";
+                if ($receta_upd = $pdo->prepare($sql_update)) {
+                    $receta_upd->bindParam(":receta_name", $param_receta_name);
+                    $receta_upd->bindParam(":receta_id", $param_receta_id);
+                    $param_receta_name = $receta_name;
+                    $param_receta_id = $receta_id;
+            
+                    if ($receta_upd->execute()) {
+                        $_SESSION['msg_type'] = $t["msg_type_suc"];
+                        $_SESSION['msg_text'] = $t["msg"]["msg_res_updated"];
+                        header("Location: index.php");
+                        exit();
+                    } else {
+                        $_SESSION['msg_type'] = $t["msg_type_dan"];
+                        $_SESSION['msg_text'] = $t["msg"]["msg_res_updated_error"];
+                        header("Location: index.php");
+                        exit();
+                    }
+                }
+                unset($receta_upd);
+            } else {
+                //en caso que se ha actualizado la imagen =>
+                print_r($_FILES);
+            }
         }
     }
 } elseif (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
-    // Get URL parameter
-    $id =  trim($_GET["id"]);
-    // Prepare a select statement
     $sql = "SELECT * FROM recetas WHERE receta_id = :id";
     if ($show_receta = $pdo->prepare($sql)) {
-        // Bind variables to the prepared statement as parameters
         $show_receta->bindParam(":id", $param_receta_id);
-
-        // Set parameters
-        $param_receta_id = trim($_GET["id"]);
-
-        // Attempt to execute the prepared statement
+        $param_receta_id = $id;
         if ($show_receta->execute()) {
             if ($show_receta->rowCount() == 1) {
-                /* Fetch result row as an associative array. Since the result set
-                contains only one row, we don't need to use while loop */
                 $row = $show_receta->fetch(PDO::FETCH_ASSOC);
-
-                // Retrieve individual field value
                 $receta_name = $row["receta_name"];
                 $receta_desc = $row["receta_desc"];
                 $receta_img = $row["receta_img"];
@@ -85,13 +93,14 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                 $receta_creat = $row["receta_creat"];
                 $receta_update = $row["receta_update"];
             } else {
-                // URL doesn't contain valid id parameter. Redirect to error page
+                // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
                 $_SESSION['msg_type'] = $t["msg_type_dan"];
                 $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
                 header("Location: index.php");
                 exit();
             }
         } else {
+            // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
             $_SESSION['msg_type'] = $t["msg_type_dan"];
             $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
             header("Location: index.php");
@@ -101,7 +110,6 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     // Close statement
     unset($show_receta);
 }
-
 $page = $t["config"]["page_recetas"];
 include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 ?>
@@ -185,8 +193,10 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
                 }?>
             </select>
         </div>
-
-        <input type="text" name="id" value="<?php echo $id ; ?>" />
+        <?php
+                 
+          ?>
+        <input type="hidden" name="id" value="<?php echo $id ?>" />
         <input type="submit" class="btn btn-primary" value="Submit" name="submit">
         <a href="../index.php" class="btn btn-secondary ml-2">Cancel</a>
     </form>
