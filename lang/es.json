@@ -98,7 +98,7 @@
 		"msg_res_updated": "Receta ha sido modificada",
 		"msg_res_updated_err": "No se ha podido modificar su receta.",
 		"msg_res_add_error": "Algo ha ido mal, quieres mandar un <a href='mailto:hola@greezaaa.es' target='_blank'>e-Mail</a> administrador?",
-		"msg_not_logged": "No estas registrado, <a href='../login.php'>Inicia session</a> para poder añadir receta",
+		"msg_not_logged": "No estas registrado, <a href='../login.php'>Inicia session</a> para poder añadir o modificar la receta",
 		"msg_res_empty": "Selecione receta para editar",
 		"msg_res_not_found": "No hemos encontrado su receta.<br>Inténtelo de nuevo"
 	},
