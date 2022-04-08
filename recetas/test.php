@@ -10,23 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $receta_content = $_POST['receta_content'];
 
     
-    if (empty($receta_name)) {
-        $receta_name_err = "No hay nombre";
-    } elseif (!filter_var($receta_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "$allowedChars")))) {
-        $receta_name_err = "nombre malo";
-    } elseif (empty($receta_desc)) {
-        $receta_desc_err = "no hay descripcion";
-    } elseif (empty($receta_content)) {
-        $receta_content_err = "no hay contenido";
-    } else {
-        //si no hay errores revisamos si se ha cargado la imagen o no
-        //si no se actualiza la iagen ejecutamos =>
-        
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        echo "TODO BIEN!";
-    }
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+    echo "ID entra con '$_POST'";
+} elseif (isset($_GET['id']) && !empty($_GET['id'])) {
+    echo "Hay ID en metodo GET " . $_GET['id'];
+} else {
+    echo "no hay GET";
 }
  ?>
 

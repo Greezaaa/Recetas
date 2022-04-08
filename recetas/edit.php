@@ -10,18 +10,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     header("Location: index.php");
     exit;
 }
-// revisamos si existe receta con ID y que ID este indicado
-// si no, mandamos a la pagina de index con mensaje
-// if (!isset($_GET['id']) && empty(trim($_GET['id']))) {
-//     $_SESSION['msg_type'] = $t["msg_type_dan"];
-//     $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
-//     header("Location: index.php");
-// }
 
 $receta_content = $receta_desc = $recetas_cat_id = $receta_img = $receta_name = $receta_author_id= "";
 $receta_name_err = $receta_desc_err = $receta_img_err = $receta_content_err = "";
-$id = (isset($_POST['id'])    && !empty($_POST['id']))   ? $_POST['id']   :  $_GET['id'];
-
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $receta_id = $_POST['id'];
@@ -77,10 +68,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         }
     }
 } elseif (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
+    $receta_id =  trim($_GET["id"]);
     $sql = "SELECT * FROM recetas WHERE receta_id = :id";
     if ($show_receta = $pdo->prepare($sql)) {
         $show_receta->bindParam(":id", $param_receta_id);
-        $param_receta_id = $id;
+        $param_receta_id = $receta_id;
         if ($show_receta->execute()) {
             if ($show_receta->rowCount() == 1) {
                 $row = $show_receta->fetch(PDO::FETCH_ASSOC);
@@ -109,6 +101,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     }
     // Close statement
     unset($show_receta);
+} else {
+    $_SESSION['msg_type'] = $t["msg_type_dan"];
+    $_SESSION['msg_text'] = $t["msg"]["msg_res_empty"];
+    header("Location: index.php");
+    exit();
 }
 $page = $t["config"]["page_recetas"];
 include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
@@ -196,7 +193,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
         <?php
                  
           ?>
-        <input type="hidden" name="id" value="<?php echo $id ?>" />
+        <input type="hidden" name="id" value="<?php echo $receta_id ?>" />
         <input type="submit" class="btn btn-primary" value="Submit" name="submit">
         <a href="../index.php" class="btn btn-secondary ml-2">Cancel</a>
     </form>
