@@ -108,3 +108,9 @@ include_once("inc/header.php");
         </a>
     </form>
 </div>
+<!-- /page content -->
+<?php
+
+include_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php";
+
+ ?>

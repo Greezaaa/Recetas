@@ -66,7 +66,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
                     unset($authors);
                 }
                 //author over?>
-        <!-- acciones en caso si usuario esta logeado y tiene derechos para modificar, o borrar las recetas -->
+        <!-- acciones -->
         <?php  ActionRes($receta, $t); ?>
 
         <!-- //acciones -->
