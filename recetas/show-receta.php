@@ -4,45 +4,47 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include_once "../config/config.php";
 include_once "../config/function.php";
-// Check existence of id parameter before processing further
-if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 
-    // Prepare a select statement
+if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     $sql = "SELECT * FROM recetas WHERE receta_id = :id";
 
     if ($stmt = $pdo->prepare($sql)) {
-        // Bind variables to the prepared statement as parameters
         $stmt->bindParam(":id", $param_receta_id);
-
-        // Set parameters
         $param_receta_id = trim($_GET["id"]);
 
-        // Attempt to execute the prepared statement
         if ($stmt->execute()) {
             if ($stmt->rowCount() == 1) {
-                /* Fetch result row as an associative array. Since the result set
-                contains only one row, we don't need to use while loop */
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                // Retrieve individual field value
                 $receta_name = $row["receta_name"];
                 $receta_desc = $row["receta_desc"];
                 $receta_img = $row["receta_img"];
+                $receta_content = $row["receta_content"];
+                $recetas_cat_id = $row["recetas_cat_id"];
+                $recetas_author_id = $row["recetas_author_id"];
+                $recetas_status = $row["recetas_status"];
+                $receta_creat = $row["receta_creat"];
+                $receta_update = $row["receta_update"];
             } else {
-                // URL doesn't contain valid id parameter. Redirect to error page
-                header("location: error.php");
+                // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
+                $_SESSION['msg_type'] = $t["msg_type_dan"];
+                $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
+                header("Location: index.php");
                 exit();
             }
         } else {
-            echo "Oops! Something went wrong. Please try again later.";
+            // Este sera mensaje si hay problemas con internos
+            $_SESSION['msg_type'] = $t["msg_type_dan"];
+            $_SESSION['msg_text'] = $t["error"]["admin"];
+            header("Location: index.php");
+            exit();
         }
     }
-
-    // Close statement
     unset($stmt);
 } else {
-    // URL doesn't contain id parameter. Redirect to error page
-    header("location: error.php");
+    $_SESSION['msg_type'] = $t["msg_type_dan"];
+    $_SESSION['msg_text'] = $t["msg"]["msg_res_empty"];
+    header("Location: index.php");
     exit();
 }
 $page = $t['config']['page_recetas'];

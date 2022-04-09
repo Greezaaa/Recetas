@@ -133,8 +133,8 @@ function AuthorNameFromId($user_id, $pdo)
 //action for receta if  user loged and if user rol admin or editor
 function ActionRes($receta, $t)
 {
-    $receta_id = $receta['receta_id'];
-    
+    $receta_id = $receta['receta_id']; ?>
+<?php
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         if ($_SESSION['user_rol'] == 3 || $_SESSION['user_rol'] == 4) {
             ?>

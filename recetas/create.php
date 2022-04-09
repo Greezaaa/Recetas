@@ -76,13 +76,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     session_start();
                     // Si todo bien...Creamos mensaje y redirigimos a la pagina de inicio
                     $_SESSION['msg_type'] = $t["msg_type_suc"];
-                    $_SESSION['msg_text'] = $t["msg"]["msg_cat_add_success"];
+                    $_SESSION['msg_text'] = $t["msg"]["msg_res_add_success"];
                     header("Location: index.php");
                     exit();
                 } else {
                     session_start();
                     $_SESSION['msg_type'] = $t["msg_type_dan"];
-                    $_SESSION['msg_text'] = $t["msg"]["msg_cat_add_error"];
+                    $_SESSION['msg_text'] = $t["msg"]["msg_res_add_error"];
                     header("Location: index.php");
                 }
             }
