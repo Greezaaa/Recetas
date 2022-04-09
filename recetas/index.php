@@ -77,7 +77,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
             echo "</div> <!-- /receta-content -->";
             unset($result);
         } else {
-            echo 'TO BE FINISHED (Mensaje a mostrar al no tener recetas/categorias' . $t["error"]["empty"] . '' . $t["button"]["add_receta"] . '';
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="recetas/create.php" class="btn success">' . $t["button"]["add_receta"] . '</a></div>';
         }
     } else {
         echo $t["error"]["admin"];

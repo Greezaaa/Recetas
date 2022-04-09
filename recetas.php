@@ -37,7 +37,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             // Free result set
             unset($result);
         } else {
-            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="recetas/create.php" class="btn btn-success pull-right">' . $t["button"]["add_receta"] . '</a></div>';
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="recetas/create.php" class="btn success">' . $t["button"]["add_receta"] . '</a></div>';
         }
     } else {
         echo $t["error"]["admin"];
