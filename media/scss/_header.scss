@@ -1,0 +1,63 @@
+.logo-conteiner {
+  .logo {
+    width: 500px;
+    background-image: url(../../media/naranja.png);
+    background-size: 150px;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: auto;
+  }
+  .logo-line {
+    position: absolute;
+    width: 70rem;
+    max-width: 70%;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    height: 2px;
+    background-color: #333;
+  }
+}
+.lang-wrapper {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  ul > li {
+    list-style: none;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  .lang {
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    filter: grayscale(100);
+    transition: all 0.3s ease;
+    &:hover {
+      filter: grayscale(0);
+      transition: all 0.3s ease;
+    }
+    & > a {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .active {
+    filter: grayscale(0);
+  }
+  .es {
+    background-image: url("../lang/es.svg");
+  }
+  .uk {
+    background-image: url("../lang/uk.svg");
+  }
+}

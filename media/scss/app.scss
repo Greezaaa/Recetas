@@ -1,113 +1,44 @@
 @import "session_msg";
+@import "header";
+@import "navbars";
+@import "vars";
+@import "normalize";
+@import "body";
 
+//Rem reset 1rem = 10px
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+//Global margin, padding, border-box
+*,
+*:before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
 body {
-  background: linear-gradient(45deg, #c9c9c95e, #d8ff0000);
-}
-.item-menu {
-  position: relative;
-  width: 90%;
-  height: 50px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .prev-item,
-  .next-item {
-    position: relative;
-    width: 50%;
-  }
-  .prev-item > a,
-  .next-item > a {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    text-decoration: none;
-    text-transform: none;
-    font-family: sans-serif;
-    color: black;
-    font-weight: 500;
-    width: 200px;
-
-    img {
-      position: absolute;
-      width: 200px;
-      height: 50px;
-      object-fit: cover;
-      opacity: 0.5;
-      z-index: -1;
-    }
-    span {
-      z-index: 1;
-    }
-    &::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 4px;
-      border-radius: 4px;
-      background-color: #18272f;
-      bottom: 0;
-      left: 0;
-      transform-origin: right;
-      transform: scaleX(0);
-      transition: transform 0.3s ease-in-out;
-    }
-    &:hover::before {
-      transform-origin: left;
-      transform: scaleX(1);
-    }
-  }
-  .prev-item > a {
-    float: left;
-    flex-direction: row;
-    span {
-      padding-left: 1.5rem;
-    }
-  }
-  .next-item > a {
-    float: right;
-    flex-direction: row-reverse;
-    span {
-      padding-right: 1.5rem;
-    }
-  }
+  background-color: $main-light;
+  font-size: 16px;
+  min-height: 100vh;
 }
 
-ul.navbar {
-  position: absolute;
-  top: 130px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+main {
+  background-color: $main-light;
+  min-height: 100%;
+  margin-bottom: 4rem;
+  z-index: 1;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  height: 4rem;
   width: 100%;
-  max-width: 768px;
-  list-style: none;
-  li > a {
-    position: relative;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-family: sans-serif;
-    color: #333;
-
-    &.active {
-      border-bottom: 3px solid #333;
-    }
-    &::after {
-      position: absolute;
-      content: "";
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 0;
-      background-color: #333;
-      transition: all 0.3s ease;
-    }
-    &:hover::after {
-      height: 2px;
-      transition: all 0.3s ease;
-    }
-  }
+  padding: 1rem;
+  background-color: #333;
+  color: #f2f2f2;
 }

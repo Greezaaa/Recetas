@@ -21,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
             echo "<div class='recetas-content'>";
             while ($receta = $recetas->fetch()) {
                 ?>
-    <div class="content" style="margin: 2rem auto; max-width: 60%; ">
+    <div class="content">
         <div class="">
             <a href="show-receta.php?id=<?php echo $receta['receta_id']; ?>"><?php echo $receta['receta_name']; ?></a>
         </div>

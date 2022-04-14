@@ -1,10 +1,5 @@
 <?php
 
-echo "<pre>";
-var_dump($_SESSION) ;
-echo "</pre>";
-
-
 //session msg
 function sessionMSG()
 {
@@ -15,10 +10,17 @@ function sessionMSG()
     unset($_SESSION['msg_text']);
     unset($_SESSION['msg_type']);
 }
- sessionMSG();
- ?>
+sessionMSG();
+?>
+</main>
 <footer>
-    #footer Loaded
+
+    <span>
+        <center>
+            Creado por <a style="color: #f2f2f2; text-decoration: none;" href="https://yellowcoffeecup.com"
+                title="Yellow Coffee Cup | Coffee and Code"> Yellow Coffee
+                Cup</a></center>
+    </span>
 </footer>
 
 </body>
