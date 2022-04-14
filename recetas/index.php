@@ -33,7 +33,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
                     if ($cats_result->rowCount() > 0) {
                         while ($cats = $cats_result->fetch()) { ?>
             <div cat_link>
-                <a href="../categorias/show-categorias.php?id=<?php echo $cats['cat_id']?>">
+                <a href="../categorias/show.php?id=<?php echo $cats['cat_id']?>">
                     <?php echo $cats['cat_name']?>
                 </a>
             </div>

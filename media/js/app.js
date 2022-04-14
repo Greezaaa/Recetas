@@ -36,3 +36,8 @@ $(".close-btn").click(function(){
 setTimeout(function() {
     $('#msg-alert').fadeOut('fast');
   }, 5000);
+
+  //show user-nav content
+  $('.user-nav-wrapper').on('click', function(){
+    $('.user-nav-wrapper').toggleClass('active');
+})

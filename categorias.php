@@ -12,8 +12,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 ?>
 <div class="page-content">
     <h2 class=""><?php echo $t["cats"]["cat"] ?></h2>
-    <a href="categorias-add.php" class="btn btn-success" title="<?php echo $t['action']['ceate']; ?>"
-        data-toggle="tooltip"><?php echo $t["button"]["add_receta"]; ?></a>
+    <?php AddCategoria($t);  ?>
     <?php
     // Attempt select query execution
     $sql = "SELECT * FROM cats ";
@@ -36,7 +35,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             // Free result set
             unset($result);
         } else {
-            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>' . $t["button"]["add_cat"] . '</a></div>';
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias/creat.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>' . $t["button"]["add_cat"] . '</a></div>';
         }
     } else {
         echo $t["error"]["admin"];

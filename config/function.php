@@ -24,8 +24,8 @@ function UserNav($t, $page)
 {
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         $user_nav = '
-        <nav class="user-nav">
-            <div>
+        <nav class="user-nav-wrapper">
+            <div class="user-nav">
             <a href="../index.php">' . $t["menu"]["home"] . '</a>
                 <a href="../recetas/mis-recetas.php">' . $t["menu"]["misrecetas"] . '</a>
                 <a href="../categorias.php">' . $t["menu"]["cats"] . '</a>
@@ -40,8 +40,8 @@ function UserNav($t, $page)
         } else {
             $log = $t["userNav"]["logText"];
             $user_nav = '
-        <nav class="user-nav">
-            <div>
+        <nav class="user-nav-wrapper">
+            <div class="user-nav">
                 <span>' . $log  . '</span>
                 <a href="/login.php"  class="btn btn-success">' . $t["user"]["login"] . '</a>
             </div>
@@ -61,6 +61,13 @@ function AddReceta($t)
 {
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_status'] == 1) {
         echo '<div class="btn success"><a href="../recetas/create.php">'.$t["action"]["create"].'</a></div>';
+    }
+}
+//añadir categoria
+function AddCategoria($t)
+{
+    if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_status'] == 1) {
+        echo '<div class="btn success"><a href="../categorias/create.php">'.$t["action"]["create"].'</a></div>';
     }
 }
 
