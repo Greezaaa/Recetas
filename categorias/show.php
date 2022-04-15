@@ -8,21 +8,21 @@ include_once "../config/function.php";
 if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
     $sql = "SELECT * FROM cats WHERE cat_id = :id";
 
-    if ($stmt = $pdo->prepare($sql)) {
-        $stmt->bindParam(":id", $param_cat_id);
+    if ($showCat = $pdo->prepare($sql)) {
+        $showCat->bindParam(":id", $param_cat_id);
         $param_cat_id = trim($_GET["id"]);
 
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() == 1) {
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $cat_id = $row['cat_id'];
-                $cat_name = $row["cat_name"];
-                $cat_desc = $row["cat_desc"];
-                $cat_img = $row["cat_img"];
+        if ($showCat->execute()) {
+            if ($showCat->rowCount() == 1) {
+                $cat = $showCat->fetch(PDO::FETCH_ASSOC);
+                $cat_id = $cat['cat_id'];
+                $cat_name = $cat["cat_name"];
+                $cat_desc = $cat["cat_desc"];
+                $cat_img = $cat["cat_img"];
             } else {
                 // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
                 $_SESSION['msg_type'] = $t["msg_type_dan"];
-                $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
+                $_SESSION['msg_text'] = $t["msg"]["msg_cat_not_found"];
                 header("Location: index.php");
                 exit();
             }
@@ -34,7 +34,7 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
             exit();
         }
     }
-    unset($stmt);
+    unset($showCat);
 } else {
     $_SESSION['msg_type'] = $t["msg_type_dan"];
     $_SESSION['msg_text'] = $t["msg"]["msg_res_empty"];
@@ -46,63 +46,68 @@ include_once "../inc/header.php";
 ?>
 <div class="content">
     <div class="">
-        <h2><?php echo $row['cat_name']; ?></h2>
+        <h2><?php echo $cat['cat_name']; ?></h2>
     </div>
 
-    <div class="contenido"><?php echo $row['cat_desc']; ?></div>
-    <div class="cats-img-wrapper"><img src="../uploads/cats/<?php echo $row['cat_img'] ?>" width="50" height="50"
+    <div class="contenido"><?php echo $cat['cat_desc']; ?></div>
+    <div class="cats-img-wrapper"><img src="../uploads/cats/<?php echo $cat['cat_img'] ?>" width="50" height="50"
             style="object-fit: cover;"></img> </div>
-    <?php actionNav($row, $t); ?>
+    <?php actionNav($cat, $t); ?>
 </div>
 <h4>
     <?php echo $t['config']['page_recetas']  ?>
 </h4>
-<div class="content">
-    <?php
-    
-    $sql = "SELECT * FROM recetas WHERE recetas_cat_id = :id";
 
-    if ($stmt = $pdo->prepare($sql)) {
-        $stmt->bindParam(":id", $param_receta_id);
-        $param_receta_id = $cat_id;
+<?php
+$sql = "SELECT * FROM recetas WHERE recetas_cat_id = $cat_id";
+    if ($recetas = $pdo->query($sql)) {
+        if ($recetas->rowCount() > 0) {
+            echo "<div class='recetas-content'>";
+            while ($receta = $recetas->fetch()) {
+                ?>
+<div class="content" style="margin: 2rem auto; max-width: 60%; ">
+    <div class="">
+        <a href="show-receta.php?id=<?php echo $receta['receta_id']; ?>"><?php echo $receta['receta_name']; ?></a>
+    </div>
+    <div class="cats-here">
+        <?php
+            $cat_id = $receta['recetas_cat_id'];
+                $s_cats = "SELECT * From cats WHERE cat_id = $cat_id";
+                if ($cats_result = $pdo->query($s_cats)) {
+                    if ($cats_result->rowCount() > 0) {
+                        while ($cats = $cats_result->fetch()) { ?>
+        <div cat_link>
+            <a href="../categorias/show-categorias.php?id=<?php echo $cats['cat_id']?>">
+                <?php echo $cats['cat_name']?>
+            </a>
+        </div>
 
-        if ($stmt->execute()) {
-            if ($stmt->rowCount() == 1) {
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                $receta_name = $row["receta_name"];
-                $receta_desc = $row["receta_desc"];
-                $receta_img = $row["receta_img"];
-                $receta_content = $row["receta_content"];
-                $recetas_cat_id = $row["recetas_cat_id"];
-                $recetas_author_id = $row["recetas_author_id"];
-                $recetas_status = $row["recetas_status"];
-                $receta_creat = $row["receta_creat"];
-                $receta_update = $row["receta_update"];
-            } else {
-                // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
-                $_SESSION['msg_type'] = $t["msg_type_dan"];
-                $_SESSION['msg_text'] = $t["msg"]["msg_res_not_found"];
-                header("Location: index.php");
-                exit();
-            }
-        } else {
-            // Este sera mensaje si hay problemas con internos
-            $_SESSION['msg_type'] = $t["msg_type_dan"];
-            $_SESSION['msg_text'] = $t["error"]["admin"];
-            header("Location: index.php");
-            exit();
-        }
-    }
-    unset($stmt);
-        echo "name " . $receta_name . "<br>";
-        echo "desc " . $receta_desc . "<br>";
-        echo "cont " . $receta_content . "<br>";
-        echo "<img src='../uploads/recetas/".$receta_img."' width='140' height='100'>";
-     ?>
-
-
+        <?php
+                        }
+                    }
+                    unset($cats_result);
+                } ?>
+    </div>
+    <div class=""><?php echo $receta['receta_desc']; ?></div>
+    <div class="cats-img-wrapper"><img src="../uploads/recetas/<?php echo $receta['receta_img'] ?>" width="50"
+            height="50" style="object-fit: cover;"></img> </div>
+    <!-- aqui tiene que estar el menu de acciones  -->
 </div>
+<?php
+            }
+            echo "</div> <!-- /receta-content -->";
+            // Free result set
+            unset($result);
+        } else {
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>' . $t["button"]["add_cat"] . '</a></div>';
+        }
+    } else {
+        echo $t["error"]["admin"];
+    }
+    // Close connection
+    unset($pdo);
+    ?>
+
 
 
 
