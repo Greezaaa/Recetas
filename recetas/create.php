@@ -8,6 +8,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     $_SESSION['msg_text'] = $t["msg"]["msg_not_logged"];
     header("Location: index.php");
     exit;
+} elseif (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] < 2) {
+    $_SESSION["msg_type"] = $t["msg_type_dan"];
+    $_SESSION["msg_text"] = $t["msg"]["msg_user_not_allowed"];
+    header("Location: index.php");
 }
 
 $receta_content = $receta_desc = $recetas_cat_id = $receta_img = $receta_name = "";
@@ -24,7 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $receta_desc = $_POST["receta_desc"];
     $receta_content = $_POST["receta_content"];
     $recetas_cat_id = $_POST["recetas_cat_id"];
-
+    
+    $recetas_status = "";
+    if (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] > 2) {
+        $recetas_status = 1;
+    } elseif (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] < 3) {
+        $recetas_status = 0;
+    }
     //  adaptamos la extencion del archivo cargado
     $imgOldExt = explode('.', $imgName);
     $imgExt = strtolower(end($imgOldExt));
@@ -56,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // cargamos archivo al la carpeta UPLOADS
             move_uploaded_file($imgTmpName, $imgDestination);
             
-            $sql = "INSERT INTO recetas (`receta_id`, `receta_name`, `receta_desc`, `receta_img`, `receta_content`, `recetas_cat_id`, `recetas_author_id`) VALUES (NULL, :receta_name, :receta_desc, :receta_img, :receta_content, :recetas_cat_id, :recetas_author_id );";
+            $sql = "INSERT INTO recetas (`receta_id`, `receta_name`, `receta_desc`, `receta_img`, `receta_content`, `recetas_cat_id`, `recetas_author_id`, `recetas_status`) VALUES (NULL, :receta_name, :receta_desc, :receta_img, :receta_content, :recetas_cat_id, :recetas_author_id, :recetas_status );";
             if ($stmt = $pdo->prepare($sql)) {
                 $stmt->bindParam(":receta_name", $param_receta_name);
                 $stmt->bindParam(":receta_desc", $param_receta_desc);
@@ -64,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindParam(":receta_content", $param_receta_content);
                 $stmt->bindParam(":recetas_cat_id", $param_recetas_cat_id);
                 $stmt->bindParam(":recetas_author_id", $param_recetas_author_id);
+                $stmt->bindParam(":recetas_status", $param_recetas_status);
                 
                 $param_receta_name = $receta_name;
                 $param_receta_desc = $receta_desc;
@@ -71,6 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $param_receta_content = $receta_content;
                 $param_recetas_cat_id = $recetas_cat_id;
                 $param_recetas_author_id = $_SESSION['user_id'];
+                $param_recetas_status = $recetas_status;
+                
 
                 if ($stmt->execute()) {
                     session_start();
@@ -78,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['msg_type'] = $t["msg_type_suc"];
                     $_SESSION['msg_text'] = $t["msg"]["msg_res_add_success"];
                     header("Location: index.php");
-                    exit();
+                    exit;
                 } else {
                     session_start();
                     $_SESSION['msg_type'] = $t["msg_type_dan"];

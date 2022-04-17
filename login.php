@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION['msg_type'] = $t["msg_type_suc"];
                             // Redirect user to welcome page
                             header("location: index.php");
+                            exit;
                         } else {
                             // Password is not valid, display a generic error message
                             $login_err = $t['error']['loging_err3'];
@@ -67,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             } else {
                 echo "<p class='text-center'>".$t['error']['admin']."</p>";
+                exit;
             }
 
             // Close statement
@@ -79,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $page = $t["config"]["page_log"];
 include_once("inc/header.php");
 ?>
-<div class="page-wrapper">
+<div class="content">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label><?php echo $t["label"]["email"] ?></label>

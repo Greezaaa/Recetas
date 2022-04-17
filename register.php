@@ -62,6 +62,7 @@ if (isset($_POST['regUser'])) {
                 $_SESSION['msg_text'] = $t["msg"]["msg_signup_suc"];
                 // Redirecion despues de registrar
                 header("location: login.php");
+                exit;
             } else {
                 echo $t["error"]["admin"];
             }
@@ -73,7 +74,7 @@ if (isset($_POST['regUser'])) {
 $page = $t["config"]["page_reg"];
 include_once("inc/header.php");
 ?>
-<div class="page-content">
+<div class="content">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label><?php echo $t["label"]["name"] ?></label>
