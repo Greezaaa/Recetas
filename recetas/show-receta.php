@@ -50,19 +50,23 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
 $page = $t['config']['page_recetas'];
 include_once "../inc/header.php";
 ?>
-<div class="content">
-    <div class="">
-        <h2><?php echo $row['receta_name']; ?></h2>
+<div class="page-content">
+
+    <div class="content">
+        <div class="receta-img">
+            <img src="../uploads/recetas/<?php echo $receta_img ?>">
+        </div>
+        <div class="receta-name">
+            <h2><?php echo $row['receta_name']; ?></h2>
+        </div>
+
+        <div class="receta-content"><?php echo $row['receta_content']; ?></div>
+
+        <?php actionNav($row, $t); ?>
     </div>
+    <div class="item-menu">
 
-    <div class="contenido"><?php echo $row['receta_content']; ?></div>
-    <div class="cats-img-wrapper"><img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" width="50" height="50"
-            style="object-fit: cover;"></img> </div>
-    <?php actionNav($row, $t); ?>
-</div>
-<div class="item-menu">
-
-    <?php
+        <?php
 
 PrevItem($pdo, $old_id);
 
@@ -70,5 +74,6 @@ NextItem($pdo, $old_id);
 unset($pdo);
 ?>
 
+    </div>
 </div>
 <?php include_once "../inc/footer.php";

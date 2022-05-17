@@ -22,7 +22,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
             echo "<div class='recetas-content'>";
             while ($row = $result->fetch()) {
                 ?>
-    <div class="content" style="margin: 2rem auto; max-width: 60%; ">
+    <div class="content">
         <div class="">
             <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>"><?php echo $row['receta_name']; ?></a>
         </div>
@@ -56,7 +56,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
             // Free result set
             unset($result);
         } else {
-            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>' . $t["button"]["add_cat"] . '</a></div>';
+            echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="categorias-add.php" class="btn btn-success pull-right">' . $t["button"]["add_receta"] . '</a></div>';
         }
     } else {
         echo $t["error"]["admin"];

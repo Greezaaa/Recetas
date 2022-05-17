@@ -21,13 +21,14 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             echo "<div class='recetas-content'>";
             while ($row = $result->fetch()) { ?>
     <div class="content">
-        <div class="">
+        <div class="receta-img">
+            <img src="uploads/recetas/<?php echo $row['receta_img'] ?>">
+        </div>
+        <div class="receta-name">
             <a href="recetas/show-receta.php?id=<?php echo $row['receta_id']; ?>"><?php echo $row['receta_name']; ?></a>
         </div>
 
-        <div class=""><?php echo $row['receta_desc']; ?></div>
-        <div class="cats-img-wrapper"><img src="uploads/recetas/<?php echo $row['receta_img'] ?>" width="50" height="50"
-                style="object-fit: cover;"></img> </div>
+        <div class="receta-desc"><?php echo $row['receta_desc']; ?></div>
         <?php actionNav(); ?>
     </div>
     <?php
@@ -46,6 +47,8 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
     unset($pdo);
     ?>
 </div>
+
+
 
 <?php
 

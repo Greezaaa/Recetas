@@ -1,28 +1,4 @@
-.logo-conteiner {
-  .logo {
-    width: 500px;
-    background-image: url(../../media/naranja.png);
-    background-size: 150px;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin: auto;
-  }
-  .logo-line {
-    position: absolute;
-    width: 70rem;
-    max-width: 70%;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    height: 2px;
-    background-color: #333;
-  }
-}
 .lang-wrapper {
-  position: absolute;
-  top: 0.5rem;
-  right: 2.5rem;
   ul > li {
     list-style: none;
   }
@@ -61,38 +37,6 @@
     background-image: url("../lang/uk.svg");
   }
 }
-
-.user-nav-wrapper {
-  position: absolute;
-  top: 0;
-  right: 0.5rem;
-  background-image: url("../user.svg");
-  background-repeat: no-repeat;
-  background-position-x: 100%;
-  background-position-y: 0.5rem;
-  background-size: 1.5rem 1.5rem;
-  min-width: 1.5rem;
-  cursor: pointer;
-  .user-nav {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    top: 3rem;
-    width: 0;
-    overflow: hidden;
-  }
-
-  &.active .user-nav {
-    width: 10rem;
-
-    a {
-      min-width: 10rem;
-      text-align: right;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 1.3rem;
-      color: $main-dark;
-    }
-  }
+.logo-wrapper {
+  max-width: 200px;
 }

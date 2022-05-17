@@ -8,10 +8,11 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
     $_SESSION['msg_text'] = $t["msg"]["msg_not_logged"];
     header("Location: index.php");
     exit;
-} elseif (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] < 2) {
+} elseif (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] <= 2) {
     $_SESSION["msg_type"] = $t["msg_type_dan"];
     $_SESSION["msg_text"] = $t["msg"]["msg_user_not_allowed"];
     header("Location: index.php");
+    exit;
 }
 
 $receta_content = $receta_desc = $recetas_cat_id = $receta_img = $receta_name = "";

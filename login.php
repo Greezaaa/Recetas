@@ -81,38 +81,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $page = $t["config"]["page_log"];
 include_once("inc/header.php");
 ?>
-<div class="content">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div class="form-group">
-            <label><?php echo $t["label"]["email"] ?></label>
-            <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
-                value="<?php echo $email; ?>">
-            <span class="invalid-feedback"><?php echo $email_err; ?></span>
-        </div>
-        <div class="form-group">
-            <label><?php echo $t["label"]["password"] ?></label>
-            <input type="password" name="password"
-                class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-            <span class="invalid-feedback"><?php echo $password_err; ?></span>
-        </div>
-        <?php
+<div class="page-content">
+    <div class="content">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="form-group">
+                <label><?php echo $t["label"]["email"] ?></label>
+                <input type="text" name="email"
+                    class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
+                    value="<?php echo $email; ?>">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div>
+            <div class="form-group">
+                <label><?php echo $t["label"]["password"] ?></label>
+                <input type="password" name="password"
+                    class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+            </div>
+            <?php
         
-         if (!empty($login_err)) {
-             echo '<span class="invalid-feedback">'. $login_err . '</span>';
-         }
-        
+        if (!empty($login_err)) {
+            echo '<span class="invalid-feedback">'. $login_err . '</span>';
+        }
+         
          ?>
-        <div class="form-group">
-            <input type="submit" class="btn btn-green full" value="<?php echo $t["user"]["login"] ?>">
-        </div>
-        <a href="register.php">
-            <p class="text-center"><?php echo $t["user"]["signIn"] ?></p>
-        </a>
-    </form>
+            <div class="form-group">
+                <input type="submit" class="btn btn-green full" value="<?php echo $t["user"]["login"] ?>">
+            </div>
+            <a href="register.php">
+                <p class="text-center btn btn-orange full"><?php echo $t["user"]["signIn"] ?></p>
+            </a>
+        </form>
+    </div>
+    <!-- /page content -->
+
 </div>
-<!-- /page content -->
 <?php
 
 include_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php";
 
- ?>
+?>

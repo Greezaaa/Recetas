@@ -103,7 +103,8 @@
 		"msg_not_logged": "No estas registrado, <a href='../login.php'>Inicia session</a> para poder añadir o modificar la receta",
 		"msg_res_empty": "Selecione receta para editar",
 		"msg_res_not_found": "No hemos encontrado su receta.<br>Inténtelo de nuevo",
-		"msg_user_not_allowed": "No permetido para usuarios no verificados"
+		"msg_user_not_allowed": "No permetido para usuarios no verificados",
+		"msg_user_not_allowed_2": "No permetido para este usuarios"
 	},
 	"other": {
 		"reg_redirect": "Ya tienes cuenta?",

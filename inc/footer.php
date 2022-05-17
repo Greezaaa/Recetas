@@ -16,13 +16,12 @@ sessionMSG();
 ?>
 </main>
 <footer>
-
-    <span>
-        <center>
-            Creado por <a style="color: #f2f2f2; text-decoration: none;" href="https://yellowcoffeecup.com"
-                title="Yellow Coffee Cup | Coffee and Code"> Yellow Coffee
-                Cup</a></center>
-    </span>
+    <center style="vertical-align: center">
+        with <span style="color: #ff0000; font-size:2.2rem"> &hearts;</span> from <a style=" color: #f2f2f2;
+                text-decoration: none;" href="https://yellowcoffeecup.com" title="Yellow Coffee Cup | Coffee and Code">
+            <img src="../media/yellowcoffeecup.svg" alt="" width="20">
+        </a>
+    </center>
 </footer>
 
 </body>

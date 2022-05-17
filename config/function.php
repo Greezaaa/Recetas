@@ -24,28 +24,28 @@ function UserNav($t, $page)
 {
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         $user_nav = '
-        <nav class="user-nav-wrapper">
+        <div class="user-nav-wrapper">
             <div class="user-nav">
-            <a href="../index.php">' . $t["menu"]["home"] . '</a>
+                <a href="../index.php">' . $t["menu"]["home"] . '</a>
                 <a href="../recetas/mis-recetas.php">' . $t["menu"]["misrecetas"] . '</a>
                 <a href="../categorias.php">' . $t["menu"]["cats"] . '</a>
                 <a href="../inc/logout.php" class="btn btn-danger">' . $t["user"]["logout"] . '</a>
-                </div>
-                </nav>';
+            </div>
+        </div>';
     } elseif (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] === false) {
         if ($page == $t["config"]["page_log"]) {
-            $user_nav =  "<h3>".$t['config']['page_log']."</h3>";
+            $user_nav =  "";
         } elseif ($page == $t["config"]["page_reg"]) {
-            $user_nav =  "<h3>".$t['config']['page_reg']."</h3>";
+            $user_nav =  "";
         } else {
             $log = $t["userNav"]["logText"];
             $user_nav = '
-        <nav class="user-nav-wrapper">
+        <div class="user-nav-wrapper">
             <div class="user-nav">
                 <span>' . $log  . '</span>
                 <a href="/login.php"  class="btn btn-success">' . $t["user"]["login"] . '</a>
             </div>
-        </nav>';
+        </div>';
         }
     }
     echo $user_nav;
@@ -60,7 +60,7 @@ function actionNav()
 function AddReceta($t)
 {
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['user_status'] == 1) {
-        echo '<div class="btn success"><a href="../recetas/create.php">'.$t["action"]["create"].'</a></div>';
+        echo '<div class="btn btn-green"><a href="../recetas/create.php">'.$t["action"]["create"].'</a></div>';
     }
 }
 //añadir categoria
@@ -145,8 +145,29 @@ function ActionRes($receta, $t)
     if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
         if ($_SESSION['user_rol'] == 3 || $_SESSION['user_rol'] == 4) {
             ?>
-<div class="btn icon"><a href="edit.php?id=<?php echo $receta_id; ?>">Editar</a></div>
-<div class="btn icon"><a href="delete.php?id=<?php echo $receta_id; ?>">Borrar</a></div>
+<div class="icon edit">
+    <a href="edit.php?id=<?php echo $receta_id; ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="11" height="11"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
+            <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
+            <line x1="16" y1="5" x2="19" y2="8" />
+        </svg>
+    </a>
+</div>
+<div class="icon delete">
+    <a href="delete.php?id=<?php echo $receta_id; ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-x" width="11" height="11"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <path d="M10 10l4 4m0 -4l-4 4" />
+        </svg>
+    </a>
+</div>
 <?php
         } elseif ($_SESSION['user_rol']==1 && $_SESSION['user_rol'] == 2) {
             echo "usuario";
