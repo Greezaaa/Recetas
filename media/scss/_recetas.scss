@@ -64,8 +64,10 @@
           height: 100%;
           filter: grayscale(100%);
           transition: all 0.3s ease;
+          opacity: 0.7;
         }
         &:hover img {
+          opacity: 1;
           filter: grayscale(0);
           transition: all 0.3s ease;
         }
@@ -158,19 +160,19 @@
       }
 
       &:nth-child(5n + 1) .content .item-data {
-        background-color: rgba(#c893a4, 0.5);
+        background-color: rgba(#c893a4, 0.7);
       }
       &:nth-child(5n + 2) .content .item-data {
-        background-color: rgba(#92a6b5, 0.5);
+        background-color: rgba(#92a6b5, 0.7);
       }
       &:nth-child(5n + 4) .content .item-data {
-        background-color: rgba(#85b3c1, 0.5);
+        background-color: rgba(#85b3c1, 0.7);
       }
       &:nth-child(5n + 3) .content .item-data {
-        background-color: rgba(#b8a965, 0.5);
+        background-color: rgba(#b8a965, 0.7);
       }
       &:nth-child(5n + 5) .content .item-data {
-        background-color: rgba(#99ada7, 0.5);
+        background-color: rgba(#99ada7, 0.7);
       }
       &:hover {
         &:nth-child(5n + 1) .content .item-data {
