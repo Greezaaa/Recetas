@@ -17,7 +17,6 @@ if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
                 $cat = $showCat->fetch(PDO::FETCH_ASSOC);
                 $cat_id = $cat['cat_id'];
                 $cat_name = $cat["cat_name"];
-                $cat_desc = $cat["cat_desc"];
                 $cat_img = $cat["cat_img"];
             } else {
                 // Si el ID es incorrecto o no existe, mandamos a cuatro vientos
@@ -50,8 +49,6 @@ include_once "../inc/header.php";
         <div class="">
             <h2><?php echo $cat['cat_name']; ?></h2>
         </div>
-
-        <div class="contenido"><?php echo $cat['cat_desc']; ?></div>
         <div class="cats-img-wrapper"><img src="../uploads/cats/<?php echo $cat['cat_img'] ?>" width="50" height="50"
                 style="object-fit: cover;"></img> </div>
         <?php actionNav($cat, $t); ?>
