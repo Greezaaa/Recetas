@@ -14,86 +14,67 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
     <h2 class=""><?php echo $t["recetas"]["receta"] ?></h2>
     <?php AddReceta($t);  ?>
     <?php
-    //version 01
-    // Buscamos todas recetas de BBDD en la tabla "recetas"
-    $sql = "SELECT * FROM recetas";
-    if ($recetas = $pdo->query($sql)) {
-        if ($recetas->rowCount() > 0) {
-            echo "<div class='recetas'>";
-            while ($receta = $recetas->fetch()) {
+    // Attempt select query execution
+    $sql = "SELECT r.receta_id, r.receta_name,r.receta_creat, r.receta_img, r.receta_desc, r.recetas_author_id, r.recetas_cat_id, u.user_name, u.user_id, c.cat_name, c.cat_id 
+    FROM (( recetas AS r
+    INNER JOIN users AS u ON r.recetas_author_id = u.user_id) 
+    INNER JOIN cats AS c ON r.recetas_cat_id = c.cat_id) 
+    ORDER BY r.receta_id ;
+    ";
+    
+    if ($result = $pdo->query($sql)) {
+        if ($result->rowCount() > 0) {
+            echo "<div class='items-wrapper'>";
+            while ($row = $result->fetch()) {
                 ?>
-    <div class="receta">
-        <div class="receta-desc">
-            <p>
-                <?php echo $receta['receta_desc']; ?>
-            </p>
-        </div>
-        <img src='../../uploads/recetas/<?php echo $receta['receta_img'] ?>' alt="">
-        <div class="receta-info-wrapper">
-            <a class="receta-name" href="show-receta.php?id=<?php echo $receta['receta_id']; ?>">
-                <?php echo $receta['receta_name']; ?>
-            </a>
-            <div class="receta-info">
 
-                <?php
-            //Buscamos el nombre de categoria atraves de id y creamos link para mostrar la categoria
-        $cat_id = $receta['recetas_cat_id'];
-                $s_cats = "SELECT * From cats WHERE cat_id = $cat_id";
-                if ($cats_result = $pdo->query($s_cats)) {
-                    if ($cats_result->rowCount() > 0) {
-                        while ($cats = $cats_result->fetch()) { ?>
+    <div class="item">
+        <div class="content">
+            <img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" alt="">
 
-                <a class="cat-name" href="../categorias/show.php?id=<?php echo $cats['cat_id']?>">
-                    <?php echo $cats['cat_name']?>
-                </a>
-                <?php
-                        }
-                    }
-                    unset($cats_result);
-                }
-                //categoria over?>
-                <span>/</span>
-                <?php
-       //Buscamos el nombre de autor y lo imprimimos en un div con link a mostrar todas las recetas del mismo autor
-                $user_id = $receta['recetas_author_id'];
-                $s_author = "SELECT * From users WHERE user_id = $user_id";
-                if ($authors = $pdo->query($s_author)) {
-                    if ($authors->rowCount() > 0) {
-                        while ($author = $authors->fetch()) { ?>
-
-                <a class="receta-author" href="recetas-author.php?id=<?php echo $author['user_id']?>">
-                    <?php echo $author['user_name']?>
-                </a>
-                <?php
-                        }
-                    }
-                    unset($authors);
-                }
-                //author over?>
-                <span>/</span>
-
-                <?php
-            $date = strtotime($receta['receta_creat']);
-                echo "<span class='receta-create' >".$data_1 = date('Y-m-d', $date). "</span>"; ?>
-
+            <div class="item-data">
+                <h3 class="item-name">
+                    <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>">
+                        <?php echo $row['receta_name']; ?>
+                    </a>
+                </h3>
+                <!-- item-name -->
+                <div class="item-cad">
+                    <span class="item-author">
+                        <a href="recetas-author.php?id=<?php echo $row['user_id']; ?>">
+                            <?php echo $row['user_name']; ?>
+                        </a>
+                    </span>
+                    <!-- item-author -->
+                    <span class="item-cat ">
+                        <a href="../categorias/show-categorias.php?id=<?php echo $row['cat_id']; ?>">
+                            <?php echo $row['cat_name']; ?>
+                        </a>
+                    </span>
+                    <!-- item-cat -->
+                    <?php
+            $date = strtotime($row['receta_creat']);
+                echo "<span class='item-create' >".$data_1 = date('d-m-Y', $date). "</span>"; ?>
+                    <!-- item-create -->
+                </div>
+                <!-- item-cad -->
+                <div class="item-desc">
+                    <?php echo $row['receta_desc']; ?>
+                </div>
+                <!-- item-desc -->
             </div>
+            <!-- item-data -->
         </div>
-        <!-- //receta info wrapper  -->
-
-
-
-
-
-        <!-- acciones -->
-        <div class="action">
-            <?php  ActionRes($receta, $t); ?>
-        </div>
-        <!-- //acciones -->
     </div>
+    <!-- item -->
 
     <?php
             }
-            echo "</div> <!-- /receta-content -->";
+            echo "
+            </div>
+            <!-- items-wrapper -->";
+            
+            // Free result set
             unset($result);
         } else {
             echo '<div class=""><em>' . $t["error"]["empty"] . '</em><a href="recetas/create.php" class="btn success">' . $t["button"]["add_receta"] . '</a></div>';
@@ -101,6 +82,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
     } else {
         echo $t["error"]["admin"];
     }
+    // Close connection
     unset($pdo);
     ?>
 </div>

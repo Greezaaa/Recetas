@@ -17,18 +17,17 @@
 <body>
 
     <header>
-        <div class="nav-action-bar">
-            <div class="lang-wrapper">
-                <ul>
-                    <li class='lang es <?php echo($idioma == "es") ? 'active': ''; ?>'><a
-                            href='../config/lang.php?l=es'></a></li>
-                    <li class='lang uk <?php echo($idioma == "uk") ? 'active': ''; ?>'><a
-                            href='../config/lang.php?l=uk'></a></li>
-                </ul>
-            </div>
-            <?php userNav($t, $page); ?>
+
+        <div class="lang-wrapper">
+            <ul>
+                <li class='lang es <?php echo($idioma == "es") ? 'active': ''; ?>'><a
+                        href='../config/lang.php?l=es'></a></li>
+                <li class='lang uk <?php echo($idioma == "uk") ? 'active': ''; ?>'><a
+                        href='../config/lang.php?l=uk'></a></li>
+            </ul>
         </div>
-        <!-- nav-action-bar -->
+        <?php userNav($t, $page); ?>
+
         <div class="logo-wrapper">
             <img src="../media/logo_uk2.svg" alt="">
         </div>
