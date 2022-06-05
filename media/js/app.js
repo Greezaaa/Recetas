@@ -28,16 +28,17 @@ function showPass() {
 }
 
 //remove parent onClick
-$(".close-btn").click(function(){
-   $(this).parent().remove();     
+$(".close-btn").click(function () {
+    $(this).parent().remove();
 })
 
 //autohide msg-alert
-setTimeout(function() {
+setTimeout(function () {
     $('#msg-alert').fadeOut('fast');
-  }, 5000);
+}, 5000);
 
-  //show user-nav content
-  $('.user-nav-wrapper').on('click', function(){
+//show user-nav content
+$('.user-nav-wrapper').on('click', function () {
     $('.user-nav-wrapper').toggleClass('active');
 })
+

@@ -21,58 +21,80 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
     INNER JOIN cats AS c ON r.recetas_cat_id = c.cat_id) 
     ORDER BY r.receta_id ;
     ";
-    
+  $isFirst = true;
     if ($result = $pdo->query($sql)) {
         if ($result->rowCount() > 0) {
             echo "<div class='items-wrapper'>";
             while ($row = $result->fetch()) {
-                ?>
+                echo "<div class='item".($isFirst ? ' first' : '')."'>"; ?>
+    <img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" alt="">
 
-    <div class="item">
-        <div class="content">
-            <img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" alt="">
+    <div class="item-data">
+        <h3 class="item-name">
+            <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>">
+                <?php echo $row['receta_name']; ?>
+            </a>
+        </h3>
+        <!-- item-name -->
 
-            <div class="item-data">
-                <h3 class="item-name">
-                    <a href="show-receta.php?id=<?php echo $row['receta_id']; ?>">
-                        <?php echo $row['receta_name']; ?>
-                    </a>
-                </h3>
-                <!-- item-name -->
-                <div class="item-cad">
-                    <span class="item-author">
-                        <a href="recetas-author.php?id=<?php echo $row['user_id']; ?>">
-                            <?php echo $row['user_name']; ?>
-                        </a>
-                    </span>
-                    <!-- item-author -->
-                    <span class="item-cat ">
-                        <a href="../categorias/show-categorias.php?id=<?php echo $row['cat_id']; ?>">
-                            <?php echo $row['cat_name']; ?>
-                        </a>
-                    </span>
-                    <!-- item-cat -->
-                    <?php
-            $date = strtotime($row['receta_creat']);
-                echo "<span class='item-create' >".$data_1 = date('d-m-Y', $date). "</span>"; ?>
-                    <!-- item-create -->
-                </div>
-                <!-- item-cad -->
-                <div class="item-desc">
-                    <?php echo $row['receta_desc']; ?>
-                </div>
-                <!-- item-desc -->
-            </div>
-            <!-- item-data -->
+        <span class="item-author">
+            <a href="recetas-author.php?id=<?php echo $row['user_id']; ?>">
+                <span class="tooltip">
+                    Ver todas recetas del autor
+                </span>
+                <?php echo $row['user_name']; ?>
+            </a>
+        </span>
+        <!-- item-author -->
+        <span class="item-cat ">
+            <a href="../categorias/show-categorias.php?id=<?php echo $row['cat_id']; ?>">
+                <span class="tooltip">
+                    Ver todas recetas de esta categoria
+                </span>
+                <?php echo $row['cat_name']; ?>
+            </a>
+
+        </span>
+        <!-- item-cat -->
+        <?php
+                $date = strtotime($row['receta_creat']);
+                if ($row['receta_creat'] != null) {
+                    echo "<div class='item-create' >
+                    <span class='item-create-day'>" . DateTraducida::DayNumber($date, $idioma) ."</span>
+                    <span class='item-create-month'>" . DateTraducida::MonthShort($date, $idioma) . "</span>  
+                    <span class='item-create-year'>" . DateTraducida::Year($date, $idioma) . "</span>  
+                    </div>";
+                } ?>
+        <!-- item-create -->
+
+        <div class="item-desc">
+            <?php echo $row['receta_desc']; ?>
         </div>
+        <!-- item-desc -->
     </div>
-    <!-- item -->
+    <!-- item-data -->
+    <a href="show-receta.php?id=<?php echo $row['receta_id'] ?>" class="itemReadMore">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus" width="44" height="44"
+            viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
 
-    <?php
+            <line x1="9" y1="12" x2="15" y2="12" />
+            <line x1="12" y1="9" x2="12" y2="15" />
+        </svg>
+    </a>
+</div>
+<!-- item -->
+<?php
+                if ($isFirst) {
+                    $isFirst = false;
+                }
             }
+            
             echo "
             </div>
             <!-- items-wrapper -->";
+
             
             // Free result set
             unset($result);
@@ -85,6 +107,27 @@ include_once $_SERVER['DOCUMENT_ROOT']."../inc/header.php";
     // Close connection
     unset($pdo);
     ?>
+<?php
+
+    
+     ?>
+<?php
+
+
+
+
+
+
+ ?>
 </div>
+
+
+<script>
+//add/remove class on click
+$(".item").click(function() {
+    $(".item").removeClass("active");
+    $(this).addClass("active");
+});
+</script>
 <?php
 include_once "../inc/footer.php";

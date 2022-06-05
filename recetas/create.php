@@ -41,18 +41,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $imgExt = strtolower(end($imgOldExt));
     //archivos permetidos
     $allowed = array('jpg', 'jpeg', 'png', 'pdf');
-    if (!in_array($imgExt, $allowed)) {
-        $receta_img_err = $t["error"]["receta_img_err1"];
-    } elseif ($imgError > 0) {
-        $receta_img_err =  $t["error"]["receta_img_err2"];
-    } elseif ($imgSize > 1000000) {
-        $receta_img_err =  $t["error"]["receta_img_err3"] . byteToMb($imgSize);
-    } elseif (empty($receta_name)) {
+    if (empty($receta_name)) {
         $receta_name_err = $t["error"]["receta_name_err1"];
     } elseif (!filter_var($receta_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "$allowedChars")))) {
         $receta_name_err = $t["error"]["receta_name_err2"];
     } elseif (empty($receta_desc)) {
         $receta_desc_err = $t["error"]["receta_desc_err1"];
+    } elseif (!isset($_FILES['receta_img']) || $_FILES['receta_img']['error'] == UPLOAD_ERR_NO_FILE) {
+        $receta_img_err  = $t['error']['receta_no_img'];
+    } elseif (!in_array($imgExt, $allowed)) {
+        $receta_img_err = $t["error"]["receta_img_err1"];
+    } elseif ($imgError > 0) {
+        $receta_img_err =  $t["error"]["receta_img_err2"];
+    } elseif ($imgSize > 1000000) {
+        $receta_img_err =  $t["error"]["receta_img_err3"] . byteToMb($imgSize);
     } else {
         $sql = "SELECT receta_id FROM recetas WHERE receta_name = :receta_name";
         $stmt = $pdo->prepare($sql);
@@ -111,36 +113,35 @@ $page = $t["config"]["page_recetas"];
 include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 ?>
 <div class="page-content">
-    <h2 class="mt-5">Añadir receta</h2>
+    <h2 class="">Añadir receta</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label>receta_name</label>
+        <div class="input-group">
             <input type="text" name="receta_name"
                 class="form-control <?php echo (!empty($receta_name_err)) ? 'is-invalid' : ''; ?>"
                 value="<?php echo $receta_name; ?>">
+            <label>receta_name</label>
             <span class="invalid-feedback"><?php echo $receta_name_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_desc</label>
+        <div class="input-group">
             <textarea name="receta_desc"
                 class="form-control <?php echo (!empty($receta_desc_err)) ? 'is-invalid' : ''; ?>"><?php echo $receta_desc; ?></textarea>
+            <label>receta_desc</label>
             <span class="invalid-feedback"><?php echo $receta_desc_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_img</label>
+        <div class="input-group">
             <input type="file" name="receta_img"
                 class="form-control <?php echo (!empty($receta_img_err)) ? 'is-invalid' : ''; ?>"
                 value="<?php echo $receta_img; ?>">
+            <label>receta_img</label>
             <span class="invalid-feedback"><?php echo $receta_img_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_content</label>
+        <div class="input-group">
             <textarea name="receta_content"
                 class="form-control <?php echo (!empty($receta_content_err)) ? 'is-invalid' : ''; ?>"><?php echo $receta_content; ?></textarea>
+            <label>receta_content</label>
             <span class="invalid-feedback"><?php echo $receta_content_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>recetas_cat_id</label>
+        <div class="input-group">
             <select name="recetas_cat_id" id="">
                 <?php $s_cats = "SELECT * FROM cats";
     if ($result = $pdo->query($s_cats)) {
@@ -148,13 +149,14 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             while ($row = $result->fetch()) {
                 $cat_id = $row['cat_id'];
                 $cat_name = $row['cat_name'];
-
+                
                 echo "<option value='" . $cat_id . "'>" . $cat_name . "</option>";
             }
         }
     }?>
 
             </select>
+            <label>recetas_cat_id</label>
         </div>
         <input type="submit" class="btn btn-primary" value="Submit" name="submit">
         <a href="../index.php" class="btn btn-secondary ml-2">Cancel</a>

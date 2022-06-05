@@ -113,21 +113,20 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 <div class="page-content">
     <h2 class="mt-5">Añadir receta</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label>receta_name</label>
+        <div class="input-group">
             <input type="text" name="receta_name"
                 class="form-control <?php echo (!empty($receta_name_err)) ? 'is-invalid' : ''; ?>"
                 value="<?php echo (!empty($receta_name)) ? $receta_name : '' ; ?>">
+            <label>receta_name</label>
             <span class="invalid-feedback"><?php echo $receta_name_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_desc</label>
+        <div class="input-group">
             <textarea name="receta_desc"
                 class="form-control <?php echo (!empty($receta_desc_err)) ? 'is-invalid' : ''; ?>"><?php echo (!empty($receta_desc)) ? $receta_desc : '' ; ?></textarea>
+            <label>receta_desc</label>
             <span class="invalid-feedback"><?php echo $receta_desc_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_img</label>
+        <div class="input-group">
             <?php if (isset($receta_img) && (!empty($receta_img))) {
     ?>
             <img src="../uploads/recetas/<?php echo $row['receta_img'] ?>" width="50" height="50"
@@ -136,16 +135,16 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             <input type="file" name="receta_img"
                 class="form-control <?php echo (!empty($receta_img_err)) ? 'is-invalid' : ''; ?>"
                 value="<?php echo $receta_img; ?>">
+            <label>receta_img</label>
             <span class="invalid-feedback"><?php echo $receta_img_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>receta_content</label>
+        <div class="input-group">
             <textarea name="receta_content"
                 class="form-control <?php echo (!empty($receta_content_err)) ? 'is-invalid' : ''; ?>"><?php echo (!empty($receta_content)) ? $receta_content : '' ; ?></textarea>
+            <label>receta_content</label>
             <span class="invalid-feedback"><?php echo $receta_content_err; ?></span>
         </div>
-        <div class="form-group">
-            <label>recetas_cat_id</label>
+        <div class="input-group">
             <select name="recetas_cat_id" id="">
                 <option value="" disabled>Seleciona categoria</option>
                 <?php
@@ -166,33 +165,34 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
                 ?>
 
             </select>
+            <label>recetas_cat_id</label>
         </div>
-        <div class="form-group">
-            <label>recetas_author_id</label>
+        <div class="input-group">
             <select name="recetas_author_id" id="">
                 <option value="" disabled>Seleciona autor</option>
 
                 <?php
             //Buscamos el nombre de autor y lo imprimimos en un div con link a mostrar todas las recetas del mismo autor
-                $recetas_author_id = $row['recetas_author_id'];
-                $s_author = "SELECT user_name, user_id From users";
-                if ($authors = $pdo->query($s_author)) {
-                    if ($authors->rowCount() > 0) {
-                        while ($author = $authors->fetch()) {
-                            $author_name = $author['user_name'];
-                            $author_id = $author['user_id'];
-                            echo($recetas_author_id === $author_id)
+            $recetas_author_id = $row['recetas_author_id'];
+            $s_author = "SELECT user_name, user_id From users";
+            if ($authors = $pdo->query($s_author)) {
+                if ($authors->rowCount() > 0) {
+                    while ($author = $authors->fetch()) {
+                        $author_name = $author['user_name'];
+                        $author_id = $author['user_id'];
+                        echo($recetas_author_id === $author_id)
                             ? '<option value="'.$author_id.'" selected>'.$author_name .'</option>'
                             : '<option value="'.$author_id.'">' . $author_name .'</option>' ;
-                        }
                     }
-                    unset($authors);
-                }?>
+                }
+                unset($authors);
+            }?>
             </select>
+            <label>recetas_author_id</label>
         </div>
         <?php
                  
-          ?>
+                 ?>
         <input type="hidden" name="id" value="<?php echo $receta_id ?>" />
         <input type="submit" class="btn btn-primary" value="Submit" name="submit">
         <a href="../index.php" class="btn btn-secondary ml-2">Cancel</a>
@@ -203,4 +203,4 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 
 include_once $_SERVER['DOCUMENT_ROOT']."/inc/footer.php";
 
- ?>
+?>

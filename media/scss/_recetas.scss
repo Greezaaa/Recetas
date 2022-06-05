@@ -1,194 +1,235 @@
-.page-content {
-  max-width: 90%;
-  margin: auto;
-
-  @media (min-width: $phone) {
-    width: 35rem;
-  }
-  @media (min-width: $tablet) {
-    width: 76.8rem;
-  }
-  @media (min-width: $pc) {
-    width: 102.4rem;
-  }
-
-  h2 {
+* > * > a:-webkit-any-link {
+  position: relative;
+  color: -webkit-link;
+  cursor: pointer;
+  text-decoration: none;
+  color: $base-text;
+  line-height: 3rem;
+  .tooltip {
+    visibility: hidden;
+    width: auto;
+    // background-color: rgba(146, 74, 92, 0.6);
+    color: #fff;
+    line-height: 1rem;
     text-align: center;
-    margin: 0 0 2rem;
-  }
-  .items-wrapper {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
-    .item {
+    border-radius: $gap * 2 $gap * 2 $gap * 2 0;
+    position: absolute;
+    z-index: 1;
+    padding: $gap;
+    text-align: right;
+    bottom: 90%;
+    left: 90%;
+    min-width: 90px;
+    max-width: 140px;
+    font-size: 1.2rem;
+    overflow: hidden;
+    &::after {
       width: 100%;
-      margin: auto;
-      height: 30rem;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
-      * > a {
-        color: #333;
-        text-decoration: none;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      content: "";
+      position: absolute;
+      background-color: #020202;
+      border-radius: $gap * 2 $gap * 2 $gap * 2 0;
+      filter: blur(30px);
+      z-index: -1;
+    }
+  }
+  &:is(:hover, :focus) .tooltip {
+    visibility: visible;
+  }
+}
+
+.items-wrapper {
+  padding-top: 4rem;
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: $gap * 2;
+
+  @media (min-width: 30em) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 60em) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .item {
+    text-decoration: none;
+    box-shadow: $shadowFar;
+    display: flex;
+    flex-direction: column;
+    height: 35rem;
+    overflow: hidden;
+    border-radius: $gap/4;
+
+    position: relative;
+    top: 0;
+    transition: $transition03;
+
+    img {
+      height: 22rem;
+      width: 100%;
+      object-fit: cover;
+      transition: $transition03;
+      filter: brightness(70%);
+    }
+    .item-data {
+      padding: $gap;
+      h3 {
+        text-align: left;
+        font-size: 2.2rem;
+        font-family: "Roboto-condensed";
+        font-weight: bold;
       }
-      @media (min-width: $phone) {
-        flex: 1 1 25rem;
+
+      .item-desc {
+        font-size: 1.4rem;
       }
-      @media (min-width: $tablet) {
-        flex: 1 1 30rem;
-      }
-      @media (min-width: $pc) {
-        flex: 1 1 40rem;
-      }
-      &:nth-child(-n + 1) {
-        flex: 1 1 100%;
-        height: 30rem;
-        @media (min-width: $tablet) {
-          height: 40rem;
+
+      .item-create {
+        position: absolute;
+        padding: $gap;
+        // border-radius: 50% 0 50% 50%;
+        top: 0rem;
+        right: 0rem;
+        aspect-ratio: 1/1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        visibility: hidden;
+        transform: translateX(10rem);
+        transition: $transition03;
+        span {
+          white-space: nowrap;
+          text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+          font-size: 1.2rem;
+          font-weight: bold;
         }
-        @media (min-width: $pc) {
-          height: 50rem;
+        .item-create-day {
+          font-size: 1.5rem;
+          line-height: 1rem;
+        }
+        .item-create-month {
+          text-decoration: underline;
+          text-transform: uppercase;
         }
       }
-      .content {
-        position: relative;
-        display: block;
-        text-decoration: none;
-        color: #333;
-        width: 100%;
-        height: 100%;
+    }
+    a.itemReadMore {
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom: -100%;
+      transition: $transition03;
+      svg {
+        width: $gap * 3;
+        height: $gap * 3;
+      }
+    }
+    &:is(:hover, :focus) {
+      top: -2px;
+      box-shadow: $shadowNear;
+      transition: $transition03;
+
+      img {
+        height: 20rem;
+        filter: brightness(100%);
+      }
+      a.itemReadMore {
+        bottom: 0;
+      }
+    }
+    &:is(:hover, :focus).first {
+      img {
+        height: 20rem;
+      }
+    }
+    &:nth-child(6n + 1) {
+      @media (min-width: 60em) {
+        grid-column: 1 / span 2;
+      }
+    }
+    &:nth-child(6n + 6) {
+      @media (min-width: 60em) {
+        grid-column: 3 / span 2;
+      }
+    }
+
+    &:is(:hover, :focus) {
+      &:nth-child(6n + 1) {
+        background-color: $ChildColor1;
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor1;
+          transform: translateX(0);
+        }
         img {
-          object-fit: cover;
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          filter: grayscale(100%);
-          transition: all 0.3s ease;
-          opacity: 0.7;
-        }
-        &:hover img {
-          opacity: 1;
-          filter: grayscale(0);
-          transition: all 0.3s ease;
-        }
-        .item-data {
-          position: absolute;
-          max-height: 9rem;
-          bottom: 0%;
-          // left: 50%;
-          // transform: translateX(-50%);
-          right: 0;
-          transition: all 0.5s ease;
-          font-family: "Roboto-condensed";
-          font-weight: normal;
-          border-radius: 3rem 3rem 0 0;
-          user-select: none;
-          width: 100%;
-          text-shadow: 0.5px 0.5px 2px rgba(#ffffff, 0.5),
-            0.8px 0.8px 5px rgba(#000000, 0.5);
-          box-shadow: 0px -10px 11px -8px rgba(0, 0, 0, 0.5);
-
-          @media (min-width: $phone) {
-            max-width: 30rem;
-          }
-          @media (min-width: $tablet) {
-            max-width: 30rem;
-          }
-          @media (min-width: $pc) {
-            max-width: 30rem;
-          }
-
-          h3 {
-            padding: 2rem 1rem 1rem;
-            height: 6rem;
-            font-size: 2rem;
-            line-height: 1em;
-            text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-family: "Roboto-condensed";
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            a {
-              display: block;
-              height: 100%;
-            }
-          }
-
-          .item-cad {
-            font-family: "Roboto-condensed";
-            font-weight: lighter;
-            text-align: center;
-            height: 3rem;
-            span:nth-child(1)::after,
-            span:nth-child(2)::after {
-              content: "|";
-              position: relative;
-              display: inline-block;
-            }
-
-            span:nth-last-child()::after {
-              content: "";
-              position: relative;
-              display: none;
-            }
-            .item-author,
-            .item-cat,
-            .item-create {
-              text-transform: uppercase;
-              font-size: 1.3rem;
-              font-weight: lighter;
-              &:hover {
-                font-weight: normal;
-              }
-            }
-          }
-          .item-desc {
-            padding: 1rem 1.5rem 2rem;
-            user-select: none;
-            font-size: 1.4rem;
-            text-align: center;
-          }
-        }
-        &:hover .item-data {
-          max-height: 25rem;
-          transition: all 0.5s ease;
-          text-shadow: none;
+          border-bottom: $gap solid $ChildColor1;
         }
       }
-
-      &:nth-child(5n + 1) .content .item-data {
-        background-color: rgba(#c893a4, 0.7);
-      }
-      &:nth-child(5n + 2) .content .item-data {
-        background-color: rgba(#92a6b5, 0.7);
-      }
-      &:nth-child(5n + 4) .content .item-data {
-        background-color: rgba(#85b3c1, 0.7);
-      }
-      &:nth-child(5n + 3) .content .item-data {
-        background-color: rgba(#b8a965, 0.7);
-      }
-      &:nth-child(5n + 5) .content .item-data {
-        background-color: rgba(#99ada7, 0.7);
-      }
-      &:hover {
-        &:nth-child(5n + 1) .content .item-data {
-          background-color: rgba(#c893a4, 1);
+      &:nth-child(6n + 2) {
+        background-color: $ChildColor2;
+        img {
+          border-bottom: $gap solid $ChildColor2;
         }
-        &:nth-child(5n + 2) .content .item-data {
-          background-color: rgba(#92a6b5, 1);
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor2;
+          transform: translateX(0);
         }
-        &:nth-child(5n + 4) .content .item-data {
-          background-color: rgba(#85b3c1, 1);
+      }
+      &:nth-child(6n + 3) {
+        background-color: $ChildColor3;
+        img {
+          border-bottom: $gap solid $ChildColor3;
         }
-        &:nth-child(5n + 3) .content .item-data {
-          background-color: rgba(#b8a965, 1);
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor3;
+          transform: translateX(0);
         }
-        &:nth-child(5n + 5) .content .item-data {
-          background-color: rgba(#99ada7, 1);
+      }
+      &:nth-child(6n + 4) {
+        background-color: $ChildColor4;
+        img {
+          border-bottom: $gap solid $ChildColor4;
+        }
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor4;
+          transform: translateX(0);
+        }
+      }
+      &:nth-child(6n + 5) {
+        background-color: $ChildColor5;
+        img {
+          border-bottom: $gap solid $ChildColor5;
+        }
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor5;
+          transform: translateX(0);
+        }
+      }
+      &:nth-child(6n + 6) {
+        background-color: $ChildColor6;
+        img {
+          border-bottom: $gap solid $ChildColor6;
+        }
+        .item-data .item-create {
+          visibility: visible;
+          background-color: $ChildColor6;
+          transform: translateX(0);
         }
       }
     }

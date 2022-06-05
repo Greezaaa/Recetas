@@ -1,16 +1,5 @@
 // headedr lang
 header {
-  position: fixed;
-  height: 20rem;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background-image: linear-gradient(
-    to top,
-    rgba(255, 255, 255, 0) 0.2rem,
-    rgba(255, 255, 255, 1) 0.7rem
-  );
-  z-index: 9999;
   .lang-wrapper {
     position: absolute;
     right: 1rem;
@@ -21,7 +10,7 @@ header {
     ul {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: ghu;
     }
     .lang {
       position: relative;
@@ -54,9 +43,9 @@ header {
     }
   }
   .logo-wrapper {
-    margin: 2rem auto 0;
+    margin: 0 auto 0;
     max-width: 300px;
-    background-color: #ffffff;
+    padding: 3rem 0 0;
   }
   .nav-wrapper {
     margin: 1rem auto 0;
@@ -83,7 +72,7 @@ header {
     }
   }
   .user-nav-wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
   }
 }

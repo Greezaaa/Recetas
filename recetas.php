@@ -18,7 +18,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
     FROM (( recetas AS r
     INNER JOIN users AS u ON r.recetas_author_id = u.user_id) 
     INNER JOIN cats AS c ON r.recetas_cat_id = c.cat_id) 
-    ORDER BY r.receta_id DESC LIMIT 5;
+    ORDER BY r.receta_id DESC LIMIT 6;
     ";
     
     if ($result = $pdo->query($sql)) {

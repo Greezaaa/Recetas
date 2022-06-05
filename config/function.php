@@ -17,7 +17,7 @@ function byteToMb($size)
     return round(pow(1024, $base - floor($base)), 1) . $suffix[$f_base];
 }
 //caracterres permetidos
-$allowedChars = "/^[a-zA-Z\sаАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ1234567890_-óÓñÑíÍáÁéÉúÜÚ]+$/";
+$allowedChars = "/^[a-zA-Z\sаАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯіІЄє1234567890_-óÓñÑíÍáÁéÉúÜÚ]+$/";
 
 //user menu
 function UserNav($t, $page)
@@ -174,5 +174,68 @@ function ActionRes($receta, $t)
         }
     } elseif (!isset($_SESSION['user_rol'])) {
         echo "User is not loged";
+    }
+}
+
+//traducimos data si el dioma esta indicado
+class DateTraducida
+{
+    // private static $idioma;
+
+    // public static function SetLang($idioma)
+    // {
+    //     self::$idioma = $_SESSION['lang'];
+    // }
+    public static function DayNumber($date, $idioma)
+    {
+        $date_day_number = new IntlDateFormatter(
+            $idioma,
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::MEDIUM,
+            'America/Los_Angeles',
+            IntlDateFormatter::GREGORIAN,
+            'dd'
+        );
+        $day_number = $date_day_number->format($date);
+        return $day_number;
+    }
+    public static function MonthFull($date, $idioma)
+    {
+        $date_month = new IntlDateFormatter(
+            $idioma,
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::MEDIUM,
+            'America/Los_Angeles',
+            IntlDateFormatter::GREGORIAN,
+            'MMMM'
+        );
+        $monthFull = $date_month->format($date);
+        return $monthFull;
+    }
+    public static function MonthShort($date, $idioma)
+    {
+        $date_month = new IntlDateFormatter(
+            $idioma,
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::MEDIUM,
+            'America/Los_Angeles',
+            IntlDateFormatter::GREGORIAN,
+            'LLL'
+        );
+        $monthShort = $date_month->format($date);
+        return $monthShort;
+    }
+    public static function Year($date, $idioma)
+    {
+        $date_year = new IntlDateFormatter(
+            $idioma,
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::MEDIUM,
+            'America/Los_Angeles',
+            IntlDateFormatter::GREGORIAN,
+            'yyyy'
+        );
+        $year = $date_year->format($date);
+        return $year;
     }
 }

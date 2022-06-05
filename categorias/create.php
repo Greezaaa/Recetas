@@ -86,7 +86,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
 <div class="page-content">
     <h2 class="mt-5">Añadir cat</h2>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
-        <div class="form-group">
+        <div class="input-group">
             <label>cat_name</label>
             <input type="text" name="cat_name"
                 class="form-control <?php echo (!empty($cat_name_err)) ? 'is-invalid' : ''; ?>"
@@ -94,7 +94,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/inc/header.php";
             <span class="invalid-feedback"><?php echo $cat_name_err; ?></span>
         </div>
 
-        <div class="form-group">
+        <div class="input-group">
             <label>cat_img</label>
             <input type="file" name="cat_img"
                 class="form-control <?php echo (!empty($cat_img_err)) ? 'is-invalid' : ''; ?>"

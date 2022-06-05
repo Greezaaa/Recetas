@@ -34,6 +34,7 @@
 		"reg_user_err6": "Por favor, vuelva a introducir la contraseña",
 		"reg_user_err7": "Las contraseñas no conciden",
 		"reg_user_err8": "Este correo ya esta registrado.",
+		"receta_no_img": "No has seleccionado la imagen",
 		"receta_img_err1": "Este fomrato no se admite",
 		"receta_img_err2": "No se ha podido cargar el archivo",
 		"receta_img_err3": "Taaño demarciado grande",

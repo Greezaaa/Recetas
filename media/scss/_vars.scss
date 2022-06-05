@@ -1,1 +1,41 @@
+$max-width599: 599px;
+$min-width600: 600px;
+$min-width900: 900px;
+$min-width1200: 1200px;
+$min-width1800: 1800px;
 
+$page-column: 110px;
+$gap: 1rem;
+$shadowNear: 0 10px 30px rgba(0, 0, 0, 0.3);
+$shadowFar: 0 4px 5px rgba(0, 0, 0, 0.2);
+$transition03: all 0.3s ease;
+$base-text: #333;
+$ChildColor1: rgba(#c56363, 0.5);
+$ChildColor2: rgba(#ce9b54, 0.5);
+$ChildColor3: rgba(#924a5c, 0.5);
+$ChildColor4: rgba(#65b866, 0.5);
+$ChildColor5: rgba(#5aa3a7, 0.5);
+$ChildColor6: rgba(#45457f, 0.5);
+@mixin for-size($size) {
+  @if $size == phone-only {
+    @media (max-width: 599px) {
+      @content;
+    }
+  } @else if $size == tablet-portrait-up {
+    @media (min-width: 600px) {
+      @content;
+    }
+  } @else if $size == tablet-landscape-up {
+    @media (min-width: 900px) {
+      @content;
+    }
+  } @else if $size == desktop-up {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  } @else if $size == big-desktop-up {
+    @media (min-width: 1800px) {
+      @content;
+    }
+  }
+}

@@ -78,35 +78,35 @@ include_once("inc/header.php");
 
     <div class="content">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label><?php echo $t["label"]["name"] ?></label>
+            <div class="input-group">
                 <input type="text" name="name"
                     class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $name; ?>">
+                <label><?php echo $t["label"]["name"] ?></label>
                 <span class="invalid-feedback"><?php echo $name_err; ?></span>
             </div>
-            <div class="form-group">
-                <label><?php echo $t["label"]["email"] ?></label>
+            <div class="input-group">
                 <input type="text" name="email"
                     class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $email; ?>">
+                <label><?php echo $t["label"]["email"] ?></label>
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
-            <div class="form-group">
-                <label><?php echo $t["label"]["password"] ?></label>
+            <div class="input-group">
                 <input type="password" name="password"
                     class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $password; ?>">
+                <label><?php echo $t["label"]["password"] ?></label>
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
-            <div class="form-group">
-                <label><?php echo $t["label"]["password2"] ?></label>
+            <div class="input-group">
                 <input type="password" name="confirm_password"
                     class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $confirm_password; ?>">
+                <label><?php echo $t["label"]["password2"] ?></label>
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
-            <div class="form-group">
+            <div class="input-group">
                 <input type="submit" class="btn btn-green full" name="regUser" value="Отправить">
             </div>
             <p class="text-center"><?php echo $t["other"]["reg_redirect"] ?> <a

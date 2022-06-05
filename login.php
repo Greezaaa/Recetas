@@ -84,17 +84,17 @@ include_once("inc/header.php");
 <div class="page-content">
     <div class="content">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label><?php echo $t["label"]["email"] ?></label>
+            <div class="input-group">
                 <input type="text" name="email"
                     class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $email; ?>">
+                <label><?php echo $t["label"]["email"] ?></label>
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
-            <div class="form-group">
-                <label><?php echo $t["label"]["password"] ?></label>
+            <div class="input-group">
                 <input type="password" name="password"
                     class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                <label><?php echo $t["label"]["password"] ?></label>
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <?php
@@ -104,7 +104,7 @@ include_once("inc/header.php");
         }
          
          ?>
-            <div class="form-group">
+            <div class="input-group">
                 <input type="submit" class="btn btn-green full" value="<?php echo $t["user"]["login"] ?>">
             </div>
             <a href="register.php">
